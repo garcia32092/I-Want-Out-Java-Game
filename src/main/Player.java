@@ -100,12 +100,11 @@ public class Player extends GameObject {
 				if (getHitBounds().intersects(tempObject.getHitBounds())) {
 					//collision code
 					HUD.HEALTH -= 0.25;
-					if (HUD.greenHEALTH < 0 || HUD.redHEALTH < 255) {
-						HUD.greenHEALTH -= 6;
+					if (HUD.greenHEALTH > 0)
+						HUD.greenHEALTH -= 5;
+					if (HUD.redHEALTH < 255)
 						HUD.redHEALTH += 5;
-					}
 				}
-				
 			}
 		}
 	}

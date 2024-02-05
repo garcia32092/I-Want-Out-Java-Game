@@ -62,6 +62,14 @@ public class Game extends JPanel implements Runnable {
 	
 	public Game() {
 		
+		gameSetUp();
+		
+//		System.out.println("Window size: " + WIDTH + " x " + HEIGHT);
+		new Window(WIDTH, HEIGHT, "ZOMBEEZ", this);
+//		System.out.println("Window size: " + WIDTH + " x " + HEIGHT);
+	}
+	
+	public void gameSetUp() {
 		handler = new Handler();
 		keyIn = new KeyInput(handler);
 		cam = new Camera(0, 0, handler);
@@ -74,14 +82,13 @@ public class Game extends JPanel implements Runnable {
 		this.addMouseListener(sMechanic);
 		this.addKeyListener(keyIn);
 		
-		
-//		System.out.println("Window size: " + WIDTH + " x " + HEIGHT);
-		new Window(WIDTH, HEIGHT, "ZOMBEEZ", this);
-//		System.out.println("Window size: " + WIDTH + " x " + HEIGHT);
-		
 		hud = new HUD();
 		spawner = new Spawn(this, handler, hud);
-		
+	}
+	
+	public void restart() {
+		tileM = new TileManager(this, handler);
+		spawner = new Spawn(this, handler, hud);
 	}
 
 	public synchronized void start() {
@@ -131,20 +138,21 @@ public class Game extends JPanel implements Runnable {
 	
 	private void tick() {
 		handler.tick();
-		cam.tick();
+//		cam.tick();
 		if (gameState == STATE.Game) {
 			hud.tick();
 			spawner.tick();
 			cam.tick();
 			
-//			if (HUD.HEALTH <= 0) {
-//				HUD.HEALTH = 100;
-//				HUD.greenHEALTH = 255;
-//				HUD.redHEALTH = 0;
-//				handler.clearEnemies();
-//				handler.clearPlayer();
-//				gameState = STATE.gameOver;
-//			}
+			if (HUD.HEALTH <= 0) {
+				gameState = STATE.gameOver;
+				HUD.HEALTH = 100;
+				HUD.greenHEALTH = 255;
+				HUD.redHEALTH = 0;
+				handler.clearHandler();
+				tileM = null;
+				spawner = null;
+			}
 			
 		}
 		
@@ -159,7 +167,7 @@ public class Game extends JPanel implements Runnable {
 		
 		Graphics2D g2 = (Graphics2D)g;
 		
-		g2.setColor(Color.gray);
+		g2.setColor(Color.BLACK);
 		g2.fillRect(0, 0, WIDTH, HEIGHT);
 		
 		if (gameState == STATE.Game) {

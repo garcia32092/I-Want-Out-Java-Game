@@ -5,7 +5,7 @@ public class Camera {
 	private int x, y;
 
 	private Handler handler;
-	private GameObject tempPlayer = null;
+	private GameObject player = null;
 	
 	public Camera(int x, int y, Handler handler) {
 		this.x = x;
@@ -18,17 +18,20 @@ public class Camera {
 	public void findPlayer() {
 		for (int i = 0; i < handler.object.size(); i++) {
 			if (handler.object.get(i).getId() == ID.Player) {
-				tempPlayer = handler.object.get(i);
+				player = handler.object.get(i);
 				break;
 			}
 		}
 	}
 	
 	public void tick() {
-		if (tempPlayer != null) {
+		if (player == null)
+			findPlayer();
+		
+		if (player != null) {
 //			if (tempPlayer.worldX > 200 && tempPlayer.worldY > 200) {
-				x = (int) tempPlayer.worldX - (Game.WIDTH/2 - Game.tileSize/2);
-				y = (int) tempPlayer.worldY - (Game.HEIGHT/2 - Game.tileSize/2);
+				x = (int) player.worldX - (Game.WIDTH/2 - Game.tileSize/2);
+				y = (int) player.worldY - (Game.HEIGHT/2 - Game.tileSize/2);
 //			}
 		}
 	}

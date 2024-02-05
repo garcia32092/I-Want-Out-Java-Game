@@ -40,6 +40,10 @@ public class Handler {
 		}
 	}
 	
+	public void clearHandler() {
+		object.clear();
+	}
+	
 	public void clearPlayer() {
 		Iterator<GameObject> iterator = object.iterator();
 		while (iterator.hasNext()) {

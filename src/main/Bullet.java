@@ -53,7 +53,6 @@ public class Bullet extends GameObject {
 	
 	private void collision() {
 		for (int i = 0; i < handler.object.size(); i++) {
-			
 			GameObject tempObject = handler.object.get(i);
 			
 			if (tempObject.getId() == ID.Zombie) {
@@ -63,13 +62,14 @@ public class Bullet extends GameObject {
 					zombie.setNormalZombieHp(zombie.getNormalZombieHp() - 25);
 					handler.removeObject(this);
 				}
-				
 			}
 		}
+		
+//		game.tileM.findTileSpawnsWithinBounds(getDistanceBounds(), "Brick Wall");
 	}
 	
 	public void render (Graphics g) {
-		g.setColor(Color.YELLOW);
+		g.setColor(Color.BLACK);
 		g.fillRect((int) worldX, (int) worldY, 5, 5);
 	}
 }

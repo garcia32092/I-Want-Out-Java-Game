@@ -55,6 +55,9 @@ public class Zombie extends GameObject {
 
 	public void tick() {
 		
+		if (player == null)
+			findPlayer();
+		
 		if (onPath) {
 			
 			int goalCol = player.getSolidBounds().x/game.tileSize;
@@ -226,6 +229,15 @@ public class Zombie extends GameObject {
 	
 	public static void resetKillCount() {
 		killCount = 0;
+	}
+	
+	public void findPlayer() {
+		for (int i = 0; i < handler.object.size(); i++) {
+			if (handler.object.get(i).getId() == ID.Player) {
+				player = handler.object.get(i);
+				break;
+			}
+		}
 	}
 
 }

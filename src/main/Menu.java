@@ -34,7 +34,7 @@ public class Menu extends MouseAdapter {
 //				handler.addObject(new Player(game.WIDTH/2-32, game.HEIGHT/2-32, ID.Player, handler, game)); OLD SPAWN POINT
 				handler.addObject(new Player(game, game.tileSize * 20, game.tileSize * 24, ID.Player, handler));
 				camera.findPlayer();
-				handler.addObject(new Zombie(game, game.tileSize * 20, game.tileSize * 20, ID.Zombie, handler));
+//				handler.addObject(new Zombie(game, game.tileSize * 20, game.tileSize * 20, ID.Zombie, handler));
 				return;
 			}
 			
@@ -58,15 +58,16 @@ public class Menu extends MouseAdapter {
 			}
 		}
 		
-		//BACK button for HELP
+		
 		else if (game.gameState == STATE.gameOver) {
 			if (mouseOver(mx, my, (Game.WIDTH / 2) - 120, 480, Game.tileSize * 5, 72)) {
+				game.restart();
 				game.gameState = STATE.Game;
 				Zombie.resetKillCount();
 				game.addKeyListener(game.keyIn);
+				handler.clearHandler();
 				handler.addObject(new Player(game, game.tileSize * 20, game.tileSize * 24, ID.Player, handler));
 				camera.findPlayer();
-				handler.addObject(new Zombie(game, game.tileSize * 20, game.tileSize * 20, ID.Zombie, handler));
 				return;
 			}
 		}

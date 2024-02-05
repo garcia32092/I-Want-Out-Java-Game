@@ -2,15 +2,17 @@ package main;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.Shape;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
-
-import main.Game.STATE;
 
 public class TileManager {
 	
@@ -98,6 +100,22 @@ public class TileManager {
 		}
 	}
 	
+	public List<Point> findTileSpawnsWithinBounds(Shape playerBounds, String tileType) {
+	    List<Point> validSpawnLocations = new ArrayList<>();
+	    for (int row = 0; row < game.maxWorldRow; row++) {
+	        for (int col = 0; col < game.maxWorldCol; col++) {
+	            int tileNum = mapTileNum[col][row];
+	            if (tileType.equals(tile[tileNum].tileIs)) {
+	                Rectangle tileRect = new Rectangle(col * game.tileSize, row * game.tileSize, game.tileSize, game.tileSize);
+	                if (playerBounds.intersects(tileRect)) {
+	                    validSpawnLocations.add(new Point(col, row));
+	                }
+	            }
+	        }
+	    }
+	    return validSpawnLocations;
+	}
+	
 	public void render(Graphics2D g2) {
 		int worldCol = 0;
 		int worldRow = 0;
@@ -134,23 +152,23 @@ public class TileManager {
 			}
 		}
 		
-		if (drawPath == true) {
-			g2.setColor(new Color(255, 0, 0, 70));
-			
-			for (int i = 0; i < game.pFinder.pathList.size(); i ++) {
-				
-				int worldX = game.pFinder.pathList.get(i).col * game.tileSize;
-				int worldY = game.pFinder.pathList.get(i).row * game.tileSize;
-//				System.out.println("Rendering node at [" + worldX + ", " + worldY + "] with solid status: " + game.pFinder.pathList.get(i).solid);
-				if (game.pFinder.pathList.get(i).solid == true)
-					g2.setColor(new Color(255, 0, 255, 128));
-				else
-					g2.setColor(new Color(255, 0, 0, 70));
-				int screenX = (int)(worldX - player.worldX + player.screenX);
-				int screenY = (int)(worldY - player.worldY + player.screenY);
-				
-				g2.fillRect(screenX, screenY, game.tileSize, game.tileSize);
-			}
-		}
+//		if (drawPath == true) {
+//			g2.setColor(new Color(255, 0, 0, 70));
+//			
+//			for (int i = 0; i < game.pFinder.pathList.size(); i ++) {
+//				
+//				int worldX = game.pFinder.pathList.get(i).col * game.tileSize;
+//				int worldY = game.pFinder.pathList.get(i).row * game.tileSize;
+////				System.out.println("Rendering node at [" + worldX + ", " + worldY + "] with solid status: " + game.pFinder.pathList.get(i).solid);
+//				if (game.pFinder.pathList.get(i).solid == true)
+//					g2.setColor(new Color(255, 0, 255, 128));
+//				else
+//					g2.setColor(new Color(255, 0, 0, 70));
+//				int screenX = (int)(worldX - player.worldX + player.screenX);
+//				int screenY = (int)(worldY - player.worldY + player.screenY);
+//				
+//				g2.fillRect(screenX, screenY, game.tileSize, game.tileSize);
+//			}
+//		}
 	}
 }
