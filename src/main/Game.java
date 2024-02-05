@@ -43,7 +43,7 @@ public class Game extends JPanel implements Runnable {
 	private Handler handler;
 	private Spawn spawner;
 	private Menu menu;
-	private shootMechanic sMechanic;
+	private ShootMechanic sMechanic;
 	private Camera cam;
 	KeyInput keyIn;
 	
@@ -76,7 +76,7 @@ public class Game extends JPanel implements Runnable {
 		cam = new Camera(0, 0, handler);
 		menu = new Menu(this, handler, cam);
 		tileM = new TileManager(this, handler);
-		sMechanic = new shootMechanic(this, handler, cam, tileM);
+		sMechanic = new ShootMechanic(this, handler, cam, tileM);
 
 		this.addMouseListener(menu);
 		this.addMouseListener(sMechanic);

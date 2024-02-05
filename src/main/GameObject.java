@@ -168,7 +168,7 @@ public abstract class GameObject {
 	    move();
 	}
 
-	private void updateDirection() {
+	protected void updateDirection() {
 	    if (velX == 0 && velY < 0) {
 	        direction = "up";
 	    } else if (velX == 0 && velY > 0) {
@@ -188,7 +188,7 @@ public abstract class GameObject {
 	    }
 	}
 
-	private void move() {
+	protected void move() {
 //	    checkCollision();
 
 	    if (!tileCollisionX) {

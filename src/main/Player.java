@@ -44,8 +44,8 @@ public class Player extends GameObject {
 	}
 	
 	public Shape getDistanceBounds() {
-		int circleWidth = 384;
-		int circleHeight = 384;
+		int circleWidth = 480;
+		int circleHeight = 480;
 		Rectangle rect = new Rectangle(((int)worldX - circleWidth/2) + (game.tileSize/2), ((int)worldY - circleHeight/2) + (game.tileSize/2), circleWidth, circleHeight);
 		Ellipse2D ellipse = new Ellipse2D.Double(rect.x, rect.y, rect.width, rect.height);
         double centerX = rect.x + rect.width / 2.0;

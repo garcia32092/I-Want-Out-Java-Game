@@ -215,11 +215,11 @@ public class Zombie extends GameObject {
 		
 	}
 
-	public float getNormalZombieHp() {
+	public float getNormalZombieHP() {
 		return normalZombieHp;
 	}
 
-	public void setNormalZombieHp(float normalZombieHp) {
+	public void setNormalZombieHP(float normalZombieHp) {
 		this.normalZombieHp = normalZombieHp;
 	}
 	

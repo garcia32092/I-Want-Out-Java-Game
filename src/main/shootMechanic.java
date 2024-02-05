@@ -5,7 +5,7 @@ import java.awt.event.MouseEvent;
 
 import main.Game.STATE;
 
-public class shootMechanic extends MouseAdapter {
+public class ShootMechanic extends MouseAdapter {
 	
 	private Game game;
 	private Handler handler;
@@ -13,7 +13,7 @@ public class shootMechanic extends MouseAdapter {
 	private TileManager tileM;
 	private GameObject tempPlayer = null;
 	
-	public shootMechanic(Game game, Handler handler, Camera cam, TileManager tileM) {
+	public ShootMechanic(Game game, Handler handler, Camera cam, TileManager tileM) {
 		this.game = game;
 		this.handler = handler;
 		this.cam = cam;

@@ -13,6 +13,8 @@ public class Bullet extends GameObject {
 	private Handler handler;
 	private GameObject player;
 	private Zombie zombie;
+	private WebSpider webSpider;
+	private Web web;
 	private TileManager tileM;
 	
 	public Bullet(Game game, float x, float y, ID id, Handler handler, TileManager tileM) {
@@ -63,7 +65,21 @@ public class Bullet extends GameObject {
 				if(getHitBounds().intersects(tempObject.getHitBounds())) {
 					//collision code
 					zombie = (Zombie)tempObject;
-					zombie.setNormalZombieHp(zombie.getNormalZombieHp() - 25);
+					zombie.setNormalZombieHP(zombie.getNormalZombieHP() - 25);
+					handler.removeObject(this);
+				}
+			} else if (tempObject.getId() == ID.WebSpider) {
+				if(getHitBounds().intersects(tempObject.getHitBounds())) {
+					//collision code
+					webSpider = (WebSpider)tempObject;
+					webSpider.setWebSpiderHP(webSpider.getWebSpiderHP() - 25);
+					handler.removeObject(this);
+				}
+			} else if (tempObject.getId() == ID.Web) {
+				if(getHitBounds().intersects(tempObject.getHitBounds())) {
+					//collision code
+					web = (Web)tempObject;
+					web.setWebHP(web.getWebHP() - 25);
 					handler.removeObject(this);
 				}
 			}

@@ -6,6 +6,8 @@ public enum ID {
 	BasicEnemy(),
 	Zombie(),
 	Trail(),
-	Bullet();
+	Bullet(),
+	WebSpider(),
+	Web();
 
 }
