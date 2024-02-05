@@ -5,16 +5,20 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.Shape;
 
+import main.Game.STATE;
+
 public class Bullet extends GameObject {
 	
 	private Game game;
 	private Handler handler;
 	private GameObject player;
 	private Zombie zombie;
+	private TileManager tileM;
 	
-	public Bullet(Game game, float x, float y, ID id, Handler handler) {
+	public Bullet(Game game, float x, float y, ID id, Handler handler, TileManager tileM) {
 		super(game, x, y ,id);
 		this.handler = handler;
+		this.tileM = tileM;
 		
 		for (int i = 0; i < handler.object.size(); i++) {
 			if (handler.object.get(i).getId() == ID.Player)
@@ -65,7 +69,17 @@ public class Bullet extends GameObject {
 			}
 		}
 		
-//		game.tileM.findTileSpawnsWithinBounds(getDistanceBounds(), "Brick Wall");
+		int tileX = (int)worldX / game.tileSize;
+	    int tileY = (int)worldY / game.tileSize;
+	    
+    	// Assuming mapTileNum contains integer IDs for tiles, where '1' represents a Brick Wall
+	    // You might need to adjust this condition based on your actual tile setup
+	    int tileID = tileM.mapTileNum[tileX][tileY];
+	    
+	    // Check if the tileID corresponds to the Brick Wall
+	    // This condition assumes '1' is the ID for Brick Wall tiles, adjust as needed
+	    if (tileM.tile[tileID].collision) // Assuming .collision is a boolean indicating if it's a solid tile
+	    	handler.removeObject(this);
 	}
 	
 	public void render (Graphics g) {

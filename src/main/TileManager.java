@@ -102,8 +102,21 @@ public class TileManager {
 	
 	public List<Point> findTileSpawnsWithinBounds(Shape playerBounds, String tileType) {
 	    List<Point> validSpawnLocations = new ArrayList<>();
-	    for (int row = 0; row < game.maxWorldRow; row++) {
-	        for (int col = 0; col < game.maxWorldCol; col++) {
+	    // Calculate visible world bounds based on player's position and screen size
+	    int screenStartX = (int) Math.max(0, player.getX() - game.WIDTH / 2);
+	    int screenStartY = (int) Math.max(0, player.getY() - game.HEIGHT / 2);
+	    int screenEndX = Math.min(game.worldWidth, screenStartX + game.WIDTH);
+	    int screenEndY = Math.min(game.worldHeight, screenStartY + game.HEIGHT);
+
+	    // Convert world coordinates to tile indices
+	    int startCol = screenStartX / game.tileSize;
+	    int startRow = screenStartY / game.tileSize;
+	    int endCol = screenEndX / game.tileSize;
+	    int endRow = screenEndY / game.tileSize;
+
+	    // Iterate over visible tiles
+	    for (int row = startRow; row <= endRow; row++) {
+	        for (int col = startCol; col <= endCol; col++) {
 	            int tileNum = mapTileNum[col][row];
 	            if (tileType.equals(tile[tileNum].tileIs)) {
 	                Rectangle tileRect = new Rectangle(col * game.tileSize, row * game.tileSize, game.tileSize, game.tileSize);

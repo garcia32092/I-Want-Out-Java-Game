@@ -10,12 +10,14 @@ public class shootMechanic extends MouseAdapter {
 	private Game game;
 	private Handler handler;
 	private Camera cam;
+	private TileManager tileM;
 	private GameObject tempPlayer = null;
 	
-	public shootMechanic(Game game, Handler handler, Camera cam) {
+	public shootMechanic(Game game, Handler handler, Camera cam, TileManager tileM) {
 		this.game = game;
 		this.handler = handler;
 		this.cam = cam;
+		this.tileM = tileM;
 	}
 	
 	public void findPlayer() {
@@ -33,7 +35,7 @@ public class shootMechanic extends MouseAdapter {
 		
 		if (game.gameState == STATE.Game) {
 			findPlayer();
-			GameObject tempBullet = handler.addObject(new Bullet(game, tempPlayer.worldX + 20, tempPlayer.worldY + 20, ID.Bullet, handler));
+			GameObject tempBullet = handler.addObject(new Bullet(game, tempPlayer.worldX + 20, tempPlayer.worldY + 20, ID.Bullet, handler, tileM));
 			float angle = (float) Math.atan2(my - tempPlayer.worldY - 20 + cam.getY(), mx - tempPlayer.worldX - 20 + cam.getX());
 			int bulletVel = 10;
 			
