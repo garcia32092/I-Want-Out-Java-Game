@@ -4,7 +4,11 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.Shape;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.Random;
+
+import javax.imageio.ImageIO;
 
 public class WebSpider extends GameObject {
     private Handler handler;
@@ -19,7 +23,23 @@ public class WebSpider extends GameObject {
         this.handler = handler;
         this.velX = 3;
         this.velY = 3;
+        
+        getWebSpiderImage();
     }
+    
+    private void getWebSpiderImage() {
+		
+		try {
+			
+			down1 = ImageIO.read(getClass().getResourceAsStream("/webspider/webspider_walk1.png"));
+			down2 = ImageIO.read(getClass().getResourceAsStream("/webspider/webspider_walk2.png"));
+			left1 = ImageIO.read(getClass().getResourceAsStream("/webspider/webspider_walk3.png"));
+			right1 = ImageIO.read(getClass().getResourceAsStream("/webspider/webspider_walk4.png"));
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
 
     @Override
     public void tick() {
@@ -27,10 +47,6 @@ public class WebSpider extends GameObject {
     	if (webSpiderHP <= 0) {
 			handler.removeObject(this);
 		}
-    	
-    	updateDirection();
-    	checkCollision();
-    	move();
     	
         tickCount++;
 
@@ -47,8 +63,28 @@ public class WebSpider extends GameObject {
         } else {
             shootCooldown--;
         }
+        
+        spriteCounter++;
+		if (spriteCounter > 8) {
+			if (spriteNum == 1) {
+				spriteNum = 2;
+			}
+			else if (spriteNum == 2) {
+				spriteNum = 3;
+			}
+			else if (spriteNum == 3) {
+				spriteNum = 4;
+			}
+			else if (spriteNum == 4) {
+				spriteNum = 1;
+			}
+			spriteCounter = 0;
+		}
 
         // Implement collision with walls and other logic here
+		updateDirection();
+    	checkCollision();
+    	move();
     }
 
     @Override
@@ -93,7 +129,29 @@ public class WebSpider extends GameObject {
 	@Override
     public void render(Graphics g) {
         // Draw the spider
-        g.setColor(Color.BLACK);
-        g.fillRect((int)worldX, (int)worldY, 32, 32); // Example rendering
+		BufferedImage image = null;
+		
+		if (spriteNum == 1) {
+			image = down1;
+		}
+		if (spriteNum == 2) {
+			image = down2;
+		}
+		if (spriteNum == 3) {
+			image = left1;
+		}
+		if (spriteNum == 4) {
+			image = right1;
+		}
+		
+		g.drawImage(image, (int)worldX, (int)worldY, Game.tileSize, Game.tileSize, null);
+		
+		// create visible hit box for getBounds()
+		g.setColor(Color.RED);
+		g.drawRect((int)worldX + 15, (int)worldY + 4, 17, 24);
+		
+		// create visible hit box for getBounds()
+		g.setColor(Color.GREEN);
+		g.drawRect((int)worldX + 12, (int)worldY + 24, 23, 23);
     }
 }

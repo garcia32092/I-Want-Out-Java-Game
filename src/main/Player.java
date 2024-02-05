@@ -18,13 +18,10 @@ public class Player extends GameObject {
 	// use it to make player faster with upgrade... should also help with animation stopping instead of standing...
 	KeyInput keyIn = new KeyInput(handler);
 	Game game;
-	boolean spawnerCollision = false;
 	
 	public Player(Game game, int x, int y, ID id, Handler handler) {
 		super(game, x, y, id);
 		this.direction = "stand";
-		this.spriteCounter = 0;
-		this.spriteNum = 1;
 		this.handler = handler;
 		this.game = game;
 		
@@ -104,6 +101,22 @@ public class Player extends GameObject {
 						HUD.greenHEALTH -= 5;
 					if (HUD.redHEALTH < 255)
 						HUD.redHEALTH += 5;
+				}
+			}
+			if (tempObject.getId() == ID.WebSpider) {
+				if (getHitBounds().intersects(tempObject.getHitBounds())) {
+					//collision code
+					HUD.HEALTH -= 2.5;
+					if (HUD.greenHEALTH > 0)
+						HUD.greenHEALTH -= 10;
+					if (HUD.redHEALTH < 255)
+						HUD.redHEALTH += 10;
+				}
+			}
+			if (tempObject.getId() == ID.Web) {
+				if (getHitBounds().intersects(tempObject.getHitBounds())) {
+					//collision code
+//					slowed = true;
 				}
 			}
 		}

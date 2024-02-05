@@ -17,14 +17,12 @@ public class Zombie extends GameObject {
 	private GameObject player;
 	private float normalZombieHp = 75;
 	private Random random = new Random();
-	private int imageRan = random.nextInt(50);
+	private int imageRan = random.nextInt(20);
 	private String downImage1, downImage2;
 	
 	public Zombie(Game game, int x, int y, ID id, Handler handler) {
 		super(game, x, y, id);
 		this.direction = "stand";
-		this.spriteCounter = 0;
-		this.spriteNum = 1;
 		this.handler = handler;
 		this.negSpeed = -2;
 		this.posSpeed = 2;
@@ -65,25 +63,6 @@ public class Zombie extends GameObject {
 			
 			searchPath(goalCol, goalRow);
 		}
-		
-//		if (tileCollision) {
-//			worldX += velX;
-//			worldY += velY;
-//			switch(direction) {
-//			case "up": worldY -= 3; break;
-//			case "down": worldY += 3; break;
-//			case "left": worldX -= 3; break;
-//			case "right": worldX += 3; break;
-//			}
-//		}
-		
-//		
-//		float diffX = player.getX() + 16 - worldX;
-//		float diffY = player.getY() + 16 - worldY;
-//		float distance = (float) Math.sqrt(diffX * diffX + diffY * diffY);
-//		
-//		velX = ((2/distance) * diffX);
-//		velY = ((2/distance) * diffY);
 				
 		if (normalZombieHp <= 0) {
 			handler.removeObject(this);

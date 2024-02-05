@@ -17,11 +17,12 @@ public abstract class GameObject {
 	protected int negSpeed, posSpeed;
 	protected BufferedImage up1, up2, down1, down2, left1, left2, right1, right2, stand;
 	protected String direction;
-	protected int spriteCounter;
-	protected int spriteNum;
+	protected int spriteCounter = 0;
+	protected int spriteNum = 1;
 	protected boolean tileCollisionX = false;
 	protected boolean tileCollisionY = false;
 	protected boolean onPath = false;
+	public boolean spawnerCollision = false, slowed = false, poisoned = false, faster = false, invulnerable = false, stronger = false;
 	
 	public GameObject(Game game, float worldX, float worldY, ID id) {
 		this.game = game;

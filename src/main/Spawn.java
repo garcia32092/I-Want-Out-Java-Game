@@ -13,7 +13,7 @@ public class Spawn {
 	private HUD hud;
 	private Random r = new Random();
 	GameObject player = null;
-	private final int NUMOFZOMBIES = 12;
+	private final int NUMOFZOMBIES = 8;
 	private final int NUMOFSPIDERS = 5;
 	
 	private int scoreKeep = 0;
