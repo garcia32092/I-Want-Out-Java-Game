@@ -43,6 +43,7 @@ public class TileManager {
 			tile[1].image = ImageIO.read(getClass().getResourceAsStream("/tiles/brick_wall.png"));
 			tile[1].collision = true;
 			tile[1].tileIs = "Brick Wall";
+//			System.out.println("Tile " + tile[1].tileIs + " collision set to " + tile[1].collision);
 			
 			tile[2] = new Tile();
 			tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/light_green_grass.png"));
@@ -50,6 +51,7 @@ public class TileManager {
 			
 			tile[3] = new Tile();
 			tile[3].image = ImageIO.read(getClass().getResourceAsStream("/tiles/green_tree_1.png"));
+			tile[3].collision = true;
 			tile[3].tileIs = "Tree";
 		}
 		
@@ -139,6 +141,11 @@ public class TileManager {
 				
 				int worldX = game.pFinder.pathList.get(i).col * game.tileSize;
 				int worldY = game.pFinder.pathList.get(i).row * game.tileSize;
+//				System.out.println("Rendering node at [" + worldX + ", " + worldY + "] with solid status: " + game.pFinder.pathList.get(i).solid);
+				if (game.pFinder.pathList.get(i).solid == true)
+					g2.setColor(new Color(255, 0, 255, 128));
+				else
+					g2.setColor(new Color(255, 0, 0, 70));
 				int screenX = (int)(worldX - player.worldX + player.screenX);
 				int screenY = (int)(worldY - player.worldY + player.screenY);
 				

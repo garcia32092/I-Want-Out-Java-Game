@@ -14,7 +14,6 @@ public class Menu extends MouseAdapter {
 	private Game game;
 	private Camera camera;
 	private Handler handler;
-	private Random r = new Random();
 	
 	public Menu(Game game, Handler handler, Camera camera) {
 		this.game = game;

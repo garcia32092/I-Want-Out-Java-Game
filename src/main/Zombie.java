@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 
@@ -15,10 +16,13 @@ public class Zombie extends GameObject {
 	private Handler handler;
 	private GameObject player;
 	private float normalZombieHp = 75;
+	private Random random = new Random();
+	private int imageRan = random.nextInt(50);
+	private String downImage1, downImage2;
 	
 	public Zombie(Game game, int x, int y, ID id, Handler handler) {
 		super(game, x, y, id);
-		this.direction = "up";
+		this.direction = "stand";
 		this.spriteCounter = 0;
 		this.spriteNum = 1;
 		this.handler = handler;
@@ -30,9 +34,8 @@ public class Zombie extends GameObject {
 			if (handler.object.get(i).getId() == ID.Player)
 				player = handler.object.get(i);
 		}
-
-		getZombieImage();
 		
+		getZombieImage();
 	}
 
 	public Rectangle getHitBounds() {
@@ -58,14 +61,6 @@ public class Zombie extends GameObject {
 			int goalRow = player.getSolidBounds().y/game.tileSize;
 			
 			searchPath(goalCol, goalRow);
-		}
-		
-		if (!tileCollisionY) {
-			worldY += velY;
-		}
-		
-		if (!tileCollisionX) {
-			worldX += velX;
 		}
 		
 //		if (tileCollision) {
@@ -102,30 +97,25 @@ public class Zombie extends GameObject {
 			}
 			spriteCounter = 0;
 		}
-		
-		if (velX > 0) {
-			this.direction = "right";
-		}
-		
-		if (velX < 0) {
-			this.direction = "left";
-		}
-		
-		if (velY < 0) {
-			this.direction = "up";
-		}
-		
 	}
 	
 	private void getZombieImage() {
+		
+		if (imageRan % 2 == 0) {
+			downImage1 = "/zombie/zombie_right_1.png";
+			downImage2 = "/zombie/zombie_right_2.png";
+		} else {
+			downImage1 = "/zombie/zombie_left_1.png";
+			downImage2 = "/zombie/zombie_left_2.png";
+		}
 		
 		try {
 			
 //			stand = ImageIO.read(getClass().getResourceAsStream("/zombie/zombie_stand.png"));
 			up1 = ImageIO.read(getClass().getResourceAsStream("/zombie/zombie_up_1.png"));
 			up2 = ImageIO.read(getClass().getResourceAsStream("/zombie/zombie_up_2.png"));
-//			down1 = ImageIO.read(getClass().getResourceAsStream("/zombie/zombie_down_1.png"));
-//			down2 = ImageIO.read(getClass().getResourceAsStream("/zombie/zombie_down_2.png"));
+			down1 = ImageIO.read(getClass().getResourceAsStream(downImage1));
+			down2 = ImageIO.read(getClass().getResourceAsStream(downImage2));
 			right1 = ImageIO.read(getClass().getResourceAsStream("/zombie/zombie_right_1.png"));
 			right2 = ImageIO.read(getClass().getResourceAsStream("/zombie/zombie_right_2.png"));
 			left1 = ImageIO.read(getClass().getResourceAsStream("/zombie/zombie_left_1.png"));
@@ -141,9 +131,9 @@ public class Zombie extends GameObject {
 		BufferedImage image = null;
 		
 		switch(direction) {
-//		case "stand":
-//			image = stand;
-//			break;
+		case "stand":
+			image = right1;
+			break;
 		case "up":
 			if (spriteNum == 1) {
 				image = up1;
@@ -152,14 +142,14 @@ public class Zombie extends GameObject {
 				image = up2;
 			}
 			break;
-//		case "down":
-//			if (spriteNum == 1) {
-//				image = down1;
-//			}
-//			if (spriteNum == 2) {
-//				image = down2;
-//			}
-//			break;
+		case "down":
+			if (spriteNum == 1) {
+				image = down1;
+			}
+			if (spriteNum == 2) {
+				image = down2;
+			}
+			break;
 		case "left":
 			if (spriteNum == 1) {
 				image = left1;
@@ -176,13 +166,49 @@ public class Zombie extends GameObject {
 				image = right2;
 			}
 			break;
+		case "upright":
+			if (spriteNum == 1) {
+				image = right1;
+			}
+			if (spriteNum == 2) {
+				image = right2;
+			}
+			break;
+		case "downright":
+			if (spriteNum == 1) {
+				image = right1;
+			}
+			if (spriteNum == 2) {
+				image = right2;
+			}
+			break;
+		case "upleft":
+			if (spriteNum == 1) {
+				image = left1;
+			}
+			if (spriteNum == 2) {
+				image = left2;
+			}
+			break;
+		case "downleft":
+			if (spriteNum == 1) {
+				image = left1;
+			}
+			if (spriteNum == 2) {
+				image = left2;
+			}
+			break;
 		}
 		
 		g.drawImage(image, (int)worldX, (int)worldY, Game.tileSize, Game.tileSize, null);
 		
 		// create visible hit box for getBounds()
-		g.setColor(Color.GREEN);
+		g.setColor(Color.RED);
 		g.drawRect((int)worldX + 15, (int)worldY + 4, 17, 24);
+		
+		// create visible hit box for getBounds()
+		g.setColor(Color.GREEN);
+		g.drawRect((int)worldX + 12, (int)worldY + 24, 23, 23);
 		
 	}
 

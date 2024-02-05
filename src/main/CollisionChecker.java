@@ -52,41 +52,77 @@ public class CollisionChecker {
 			}
 			break;
 		case "upright":
-			tileNum1 = game.tileM.mapTileNum[objectLeftCol][objectTopRow];
-			tileNum2 = game.tileM.mapTileNum[objectRightCol][objectTopRow];
-			if (game.tileM.tile[tileNum1].collision == true) {
-				gameObject.tileCollisionY = true;
-			} else if (game.tileM.tile[tileNum2].collision == true) {
-				gameObject.tileCollisionX = true;
-			}
-			break;
+			// Check collision in the upward direction
+		    tileNum1 = game.tileM.mapTileNum[objectLeftCol][objectTopRow];
+		    tileNum2 = game.tileM.mapTileNum[objectRightCol][objectTopRow];
+		    if (game.tileM.tile[tileNum1].collision || game.tileM.tile[tileNum2].collision) {
+		        gameObject.tileCollisionY = true;
+		    }
+		    
+		    // Check collision in the rightward direction
+		    tileNum1 = game.tileM.mapTileNum[objectRightCol][objectTopRow];
+		    tileNum2 = game.tileM.mapTileNum[objectRightCol][objectBottomRow];
+		    if (game.tileM.tile[tileNum1].collision || game.tileM.tile[tileNum2].collision) {
+		        gameObject.tileCollisionX = true;
+		    }
+		    break;
 		case "upleft":
 			tileNum1 = game.tileM.mapTileNum[objectLeftCol][objectTopRow];
 			tileNum2 = game.tileM.mapTileNum[objectRightCol][objectTopRow];
-			if (game.tileM.tile[tileNum1].collision == true) {
+			if (game.tileM.tile[tileNum1].collision == true || game.tileM.tile[tileNum2].collision == true) {
 				gameObject.tileCollisionY = true;
-			} else if (game.tileM.tile[tileNum2].collision == true) {
+			}
+			
+			tileNum1 = game.tileM.mapTileNum[objectLeftCol][objectTopRow];
+			tileNum2 = game.tileM.mapTileNum[objectLeftCol][objectBottomRow];
+			if (game.tileM.tile[tileNum1].collision == true || game.tileM.tile[tileNum2].collision == true) {
 				gameObject.tileCollisionX = true;
 			}
 			break;
 		case "downright":
 			tileNum1 = game.tileM.mapTileNum[objectLeftCol][objectBottomRow];
 			tileNum2 = game.tileM.mapTileNum[objectRightCol][objectBottomRow];
-			if (game.tileM.tile[tileNum1].collision == true) {
+			if (game.tileM.tile[tileNum1].collision == true || game.tileM.tile[tileNum2].collision == true) {
 				gameObject.tileCollisionY = true;
-			} else if (game.tileM.tile[tileNum2].collision == true) {
+			}
+			
+			tileNum1 = game.tileM.mapTileNum[objectRightCol][objectTopRow];
+			tileNum2 = game.tileM.mapTileNum[objectRightCol][objectBottomRow];
+			if (game.tileM.tile[tileNum1].collision == true || game.tileM.tile[tileNum2].collision == true) {
 				gameObject.tileCollisionX = true;
 			}
 			break;
 		case "downleft":
 			tileNum1 = game.tileM.mapTileNum[objectLeftCol][objectBottomRow];
 			tileNum2 = game.tileM.mapTileNum[objectRightCol][objectBottomRow];
-			if (game.tileM.tile[tileNum1].collision == true) {
+			if (game.tileM.tile[tileNum1].collision == true || game.tileM.tile[tileNum2].collision == true) {
 				gameObject.tileCollisionY = true;
-			} else if (game.tileM.tile[tileNum2].collision == true) {
+			}
+			
+			tileNum1 = game.tileM.mapTileNum[objectLeftCol][objectTopRow];
+			tileNum2 = game.tileM.mapTileNum[objectLeftCol][objectBottomRow];
+			if (game.tileM.tile[tileNum1].collision == true || game.tileM.tile[tileNum2].collision == true) {
 				gameObject.tileCollisionX = true;
 			}
 			break;
 		}
+	}
+	
+	public boolean checkTileCollision(GameObject gameObject, int dx, int dy) {
+	    // Calculate the next position
+	    int nextX = (int) gameObject.getX() + dx * gameObject.posSpeed;
+	    int nextY = (int) gameObject.getY() + dy * gameObject.posSpeed;
+
+	    // Convert position to tile coordinates
+	    int tileX = nextX / game.tileSize;
+	    int tileY = nextY / game.tileSize;
+
+	    // Assuming the mapTileNum array holds indices to the tile array
+	    int tileIndex = game.tileM.mapTileNum[tileX][tileY];
+
+	    // Now access the actual tile object to check for collision
+	    boolean hasCollision = game.tileM.tile[tileIndex].collision;
+
+	    return hasCollision;
 	}
 }

@@ -5,6 +5,8 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.image.BufferedImage;
 
+import ai.Node;
+
 public abstract class GameObject {
 	
 	protected float worldX, worldY, screenX, screenY;
@@ -122,80 +124,83 @@ public abstract class GameObject {
 	}
 	
 	public void searchPath(int goalCol, int goalRow) {
-		
-		int startCol = getSolidBounds().x/game.tileSize;
-		int startRow = getSolidBounds().y/game.tileSize;
-		
-		if ((startCol >= 0 && startCol < 88) && (startRow >= 0 && startRow < 64))
-			game.pFinder.setNodes(startCol, startRow, goalCol, goalRow, this);
-		
-		if (game.pFinder.search() == true) {
-			
-			// new worldX & worldY
-			int nextX = game.pFinder.pathList.get(0).col * game.tileSize;
-			int nextY = game.pFinder.pathList.get(0).row * game.tileSize;
-			
-			// object's solidBounds position
-			int objLeftX = getSolidBounds().x;
-			int objRightX = getSolidBounds().x + getSolidBounds().width;
-			int objTopY = getSolidBounds().y;
-			int objBottomY = getSolidBounds().y + getSolidBounds().height;
-			
-			if (objTopY > nextY && objLeftX >= nextX && objRightX < nextX + game.tileSize) {
-				direction = "up";
-				setVelY(negSpeed);
-			}
-			else if (objTopY < nextY && objLeftX >= nextX && objRightX < nextX + game.tileSize) {
-				direction = "down";
-				setVelY(posSpeed);
-			}
-			else if (objTopY >= nextY && objBottomY < nextY + game.tileSize) {
-				if (objLeftX > nextX) {
-					direction = "left";
-					setVelX(negSpeed);
-				}
-				if (objLeftX < nextX) {
-					direction = "right";
-					setVelX(posSpeed);
-				}
-			}
-			else if (objTopY > nextY && objLeftX > nextX) {
-//				direction = "up";
-				setVelY(negSpeed);
-				checkCollision();
-				if (tileCollisionX == true) {
-					direction = "left";
-					setVelX(negSpeed);
-				}
-			}
-			else if (objTopY > nextY && objLeftX < nextX) {
-//				direction = "up";
-				setVelY(negSpeed);
-				checkCollision();
-				if (tileCollisionX == true) {
-					direction = "right";
-					setVelX(posSpeed);
-				}
-			}
-			else if (objTopY < nextY && objLeftX > nextX) {
-//				direction = "down";
-				setVelY(posSpeed);
-				checkCollision();
-				if (tileCollisionX == true) {
-					direction = "left";
-					setVelX(negSpeed);
-				}
-			}
-			else if (objTopY < nextY && objLeftX < nextX) {
-//				direction = "down";
-				setVelY(posSpeed);
-				checkCollision();
-				if (tileCollisionX == true) {
-					direction = "right";
-					setVelX(posSpeed);
-				}
-			}
-		}
+	    int startCol = (int) worldX / game.tileSize;
+	    int startRow = (int) worldY / game.tileSize;
+
+	    game.pFinder.setNodes(startCol, startRow, goalCol, goalRow);
+
+	    if (game.pFinder.search()) {
+	    	if (game.pFinder.pathList.size() > 0) {
+		        Node nextStep = game.pFinder.pathList.get(0); // Assuming pathList.get(0) is the next node in the path
+	
+		        int nextX = nextStep.col * game.tileSize;
+		        int nextY = nextStep.row * game.tileSize;
+	
+		        // Determine movement direction
+		        int dx = Integer.compare(nextX, (int) this.worldX);
+		        int dy = Integer.compare(nextY, (int) this.worldY);
+	
+		        // Attempt to move in the desired direction
+		        boolean canMoveDiagonally = !game.cChecker.checkTileCollision(this, dx, dy);
+		        boolean canMoveHorizontally = !game.cChecker.checkTileCollision(this, dx, 0);
+		        boolean canMoveVertically = !game.cChecker.checkTileCollision(this, 0, dy);
+	
+		        if (canMoveDiagonally) {
+		            this.velX = dx * this.posSpeed;
+		            this.velY = dy * this.posSpeed;
+		        } else if (canMoveHorizontally) {
+		            this.velX = dx * this.posSpeed;
+		            this.velY = 0;
+		        } else if (canMoveVertically) {
+		            this.velX = 0;
+		            this.velY = dy * this.posSpeed;
+		        } else {
+		            // If no movement is possible, stop the zombie or implement logic to handle being stuck
+		            this.velX = 0;
+		            this.velY = 0;
+		        }
+	    	}
+	    } else {
+	        // Pathfinding failed to find a path; handle accordingly
+	    }
+
+	    updateDirection();
+	    move();
 	}
 
+	private void updateDirection() {
+	    if (velX == 0 && velY < 0) {
+	        direction = "up";
+	    } else if (velX == 0 && velY > 0) {
+	        direction = "down";
+	    } else if (velX < 0 && velY == 0) {
+	        direction = "left";
+	    } else if (velX > 0 && velY == 0) {
+	        direction = "right";
+	    } else if (velX > 0 && velY < 0) {
+	        direction = "upright";
+	    } else if (velX < 0 && velY < 0) {
+	        direction = "upleft";
+	    } else if (velX > 0 && velY > 0) {
+	        direction = "downright";
+	    } else if (velX < 0 && velY > 0) {
+	        direction = "downleft";
+	    }
+	}
+
+	private void move() {
+//	    checkCollision();
+
+	    if (!tileCollisionX) {
+	        worldX += velX;
+	    } else {
+	        velX = 0; // Stop movement in the X direction if there's a collision
+	    }
+
+	    if (!tileCollisionY) {
+	        worldY += velY;
+	    } else {
+	        velY = 0; // Stop movement in the Y direction if there's a collision
+	    }
+	}
 }
