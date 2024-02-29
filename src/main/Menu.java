@@ -100,7 +100,7 @@ public class Menu extends MouseAdapter {
 			
 			g.setFont(fnt);
 			g.setColor(Color.GREEN);
-			g.drawString("ZOMBIE GAME", (Game.WIDTH / 2) - 280, 130);
+			g.drawString("I WANT OUT", (Game.WIDTH / 2) - 280, 130);
 			
 			g.setFont(fnt2);
 			g.setColor(Color.WHITE);

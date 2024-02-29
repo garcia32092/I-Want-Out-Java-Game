@@ -116,10 +116,10 @@ public class Web extends GameObject {
     		g.drawImage(image, (int)worldX, (int)worldY, Game.tileSize, Game.tileSize, null);
         	
             g.setColor(Color.GREEN); // Stationary web color
-            g.drawRect((int) worldX, (int) worldY, 16, 16); // Example rendering
+//            g.drawRect((int) worldX, (int) worldY, 16, 16); // FOR TESTING
         } else {
             g.setColor(Color.WHITE); // Projectile web color
-            g.fillRect((int) worldX, (int) worldY, 4, 4); // Example rendering
+            g.fillRect((int) worldX, (int) worldY, 4, 4);
         }
     }
 }

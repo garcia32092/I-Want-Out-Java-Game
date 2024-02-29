@@ -148,10 +148,10 @@ public class WebSpider extends GameObject {
 		
 		// create visible hit box for getBounds()
 		g.setColor(Color.RED);
-		g.drawRect((int)worldX + 15, (int)worldY + 4, 17, 24);
+//		g.drawRect((int)worldX + 15, (int)worldY + 4, 17, 24); // FOR TESTING
 		
 		// create visible hit box for getBounds()
 		g.setColor(Color.GREEN);
-		g.drawRect((int)worldX + 12, (int)worldY + 24, 23, 23);
+//		g.drawRect((int)worldX + 12, (int)worldY + 24, 23, 23); // FOR TESTING
     }
 }
