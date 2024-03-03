@@ -35,7 +35,7 @@ public class Player extends GameObject {
 		x = Game.clampLoop((int)x, -12, Game.WIDTH - 34);
 		y = Game.clampLoop((int)y, -12, Game.HEIGHT - 58);
 		
-		//handler.addObject(new Trail(x, y, ID.Trail, Color.CYAN, 32, 32, 0.08f, handler));
+//		handler.addObject(new Trail(x, y, ID.Trail, Color.CYAN, 32, 32, 0.08f, handler));
 		
 		collision();
 		
@@ -62,15 +62,17 @@ public class Player extends GameObject {
 				if(getBounds().intersects(tempObject.getBounds())) {
 					//collision code
 					HUD.HEALTH -= 0.25;
-					HUD.greenHEALTH -= 6;
-					HUD.redHEALTH += 5;
+					if (HUD.greenHEALTH < 0 || HUD.redHEALTH < 255) {
+						HUD.greenHEALTH -= 6;
+						HUD.redHEALTH += 5;
+					}
 				}
 				
 			}
 		}
 	}
 	
-	public void getPlayerImage() {
+	private void getPlayerImage() {
 		
 		try {
 			
@@ -89,7 +91,7 @@ public class Player extends GameObject {
 		}
 	}
 	
-	public void render(Graphics g) {		
+	public void render(Graphics g) {
 //		g.setColor(Color.WHITE);
 //		g.fillRect((int)x, (int)y, 16, 16);
 		

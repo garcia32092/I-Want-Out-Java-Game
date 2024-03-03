@@ -5,6 +5,7 @@ public enum ID {
 	Player(),
 	BasicEnemy(),
 	Zombie(),
-	Trail();
+	Trail(),
+	Bullet();
 
 }

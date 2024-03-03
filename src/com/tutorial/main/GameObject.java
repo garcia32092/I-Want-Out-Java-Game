@@ -75,6 +75,7 @@ public abstract class GameObject {
 	}
 	
 	public void spriteIncrement() {
+		spriteCounter++;
 		if (spriteCounter > 10) {
 			if (spriteNum == 1) {
 				spriteNum = 2;

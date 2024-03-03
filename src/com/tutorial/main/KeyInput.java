@@ -6,16 +6,16 @@ import java.awt.event.KeyEvent;
 public class KeyInput extends KeyAdapter {
 	
 	private Handler handler;
-	public boolean[] keyDown = new boolean[4];
+	public boolean keyDown, keyUp, keyLeft, keyRight;
 	
 	// delete handler and just make it like the sprite video. Make booleans public and check if their true in player class so you can create animation
 	public KeyInput(Handler handler) {
 		this.handler = handler;
 		
-		keyDown[0] = false;
-		keyDown[1] = false;
-		keyDown[2] = false;
-		keyDown[3] = false;
+		keyDown = false;
+		keyUp = false;
+		keyLeft = false;
+		keyRight = false;
 		
 	}
 	
@@ -28,22 +28,22 @@ public class KeyInput extends KeyAdapter {
 			if (tempObject.getId() == ID.Player ) {
 				//key events for Player 1
 					if (key == KeyEvent.VK_W) {
-						keyDown[0] = true;
+						keyUp = true;
 						tempObject.setDirection("up");
 						tempObject.setVelY(-5);
 					}
 					if (key == KeyEvent.VK_S) {
-						keyDown[1] = true;
+						keyDown = true;
 						tempObject.setDirection("down");
 						tempObject.setVelY(5);
 					}
 					if (key == KeyEvent.VK_A) {
-						keyDown[2] = true;
+						keyLeft = true;
 						tempObject.setDirection("left");
 						tempObject.setVelX(-5);
 					}
 					if (key == KeyEvent.VK_D) {
-						keyDown[3] = true;
+						keyRight = true;
 						tempObject.setDirection("right");
 						tempObject.setVelX(5);
 					}
@@ -64,28 +64,54 @@ public class KeyInput extends KeyAdapter {
 			if (tempObject.getId() == ID.Player ) {
 				//key events for Player 1
 				
-				if (key == KeyEvent.VK_W)
+				if (key == KeyEvent.VK_W) {
 					//tempObject.setVelY(0);
-					keyDown[0] = false;
-				if (key == KeyEvent.VK_S)
+					keyUp = false;
+				}
+				if (key == KeyEvent.VK_S) {
 					//tempObject.setVelY(0);
-					keyDown[1] = false;
-				if (key == KeyEvent.VK_A)
+					keyDown = false;
+				}
+				if (key == KeyEvent.VK_A) {
 					//tempObject.setVelX(0);
-					keyDown[2] = false;
-				if (key == KeyEvent.VK_D)
+					keyLeft = false;
+				}
+				if (key == KeyEvent.VK_D) {
 					//tempObject.setVelX(0);
-					keyDown[3] = false;
+					keyRight = false;
+				}
 				
 				//vertical movement
-				if (!keyDown[0] && !keyDown[1]) tempObject.setVelY(0);
+				if (!keyUp && !keyDown) tempObject.setVelY(0);
 				//horizontal movement
-				if (!keyDown[2] && !keyDown[3]) tempObject.setVelX(0);
+				if (!keyLeft && !keyRight) tempObject.setVelX(0);
 				
 				//bug fix for going to the right after 'd' key is released
-				if (keyDown[2] && !keyDown[3]) tempObject.setVelX(-5);
+				if (keyLeft && !keyRight) {
+					tempObject.setVelX(-5);
+					tempObject.setDirection("left");
+				}
 				//bug fix for going to the left after 'a' key is released
-				if (!keyDown[2] && keyDown[3]) tempObject.setVelX(5);
+				if (!keyLeft && keyRight) {
+					tempObject.setVelX(5);
+					tempObject.setDirection("right");
+				}
+				
+				//bug fix for player image facing left/right when going up
+				if (!keyLeft && !keyRight && keyUp) {
+					tempObject.setVelY(-5);
+					tempObject.setDirection("up");
+				}
+				
+				//bug fix for player image facing left/right when going down
+				if (!keyLeft && !keyRight && keyDown) {
+					tempObject.setVelY(5);
+					tempObject.setDirection("down");
+				}
+				
+				if (!keyUp && !keyDown && !keyLeft && !keyRight) {
+					tempObject.setDirection("stand");
+				}
 			}
 		}
 	}

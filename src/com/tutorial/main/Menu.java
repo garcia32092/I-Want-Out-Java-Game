@@ -28,13 +28,16 @@ public class Menu extends MouseAdapter {
 			//PLAY button
 			if (mouseOver(mx, my, (Game.WIDTH / 2) - 120, 220, Game.tileSize * 5, 72)) {
 				game.gameState = STATE.Game;
+				//                           Game.tileSize * 19, Game.tileSize * 24 (world map location)
 				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
 				handler.addObject(new Zombie(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.Zombie, handler));
+				return;
 			}
 			
 			//HELP button
 			if (mouseOver(mx, my, (Game.WIDTH / 2) - 120, 350, Game.tileSize * 5, 72)) {
 				game.gameState = STATE.Help;
+				return;
 			}
 			
 			//QUIT button
@@ -47,6 +50,17 @@ public class Menu extends MouseAdapter {
 		else if (game.gameState == STATE.Help) {
 			if (mouseOver(mx, my, (Game.WIDTH / 2) - 410, 20, 200, 50)) {
 				game.gameState = STATE.Menu;
+				return;
+			}
+		}
+		
+		//BACK button for HELP
+		else if (game.gameState == STATE.gameOver) {
+			if (mouseOver(mx, my, (Game.WIDTH / 2) - 120, 480, Game.tileSize * 5, 72)) {
+				game.gameState = STATE.Game;
+				Zombie.resetKillCount();
+				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
+				handler.addObject(new Zombie(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.Zombie, handler));
 				return;
 			}
 		}
@@ -110,6 +124,36 @@ public class Menu extends MouseAdapter {
 			g.setFont(fnt2);
 			g.drawRect((Game.WIDTH / 2) - 410, 20, 200, 50);
 			g.drawString("Back", 85, 55);
+		}
+		
+		else if (game.gameState == STATE.gameOver) {
+			Font fnt = new Font("arial", 1, 60);
+			Font fnt2 = new Font("arial", 1, 30);
+			Font fnt3 = new Font("arial", 1, 30);
+			
+			g.setFont(fnt);
+			g.setColor(Color.WHITE);
+			g.drawString("Game Over", (Game.WIDTH / 2) - 160, 130);
+			
+			if (Zombie.getKillCount() <= 0) {
+				g.setFont(fnt3);
+				g.drawString("You didn't kill any zombies... This is awkward...", (Game.WIDTH / 2) - 340, 300);
+			}
+			
+			else if (Zombie.getKillCount() >= 1 && Zombie.getKillCount() <= 24) {
+				g.setFont(fnt3);
+				g.drawString("You killed " + Zombie.getKillCount() + " zombies. Nice.", (Game.WIDTH / 2) - 340, 300);
+			}
+			
+			else if (Zombie.getKillCount() >= 2) {
+				g.setFont(fnt3);
+				g.drawString("You killed " + Zombie.getKillCount() + " zombies! You're a slayer!", (Game.WIDTH / 2) - 330, 300);
+			}
+			
+			g.setFont(fnt2);
+			g.drawRect((Game.WIDTH / 2) - 120, 480, Game.tileSize * 5, 72);
+			g.drawString("Try again?", (Game.WIDTH / 2) - 60, 500);
+						
 		}
 
 	}

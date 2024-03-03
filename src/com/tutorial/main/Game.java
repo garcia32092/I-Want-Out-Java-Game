@@ -1,37 +1,58 @@
+/*
+ * implement xbox controller
+ * https://stackoverflow.com/questions/17099787/java-using-xbox-controller
+ * 
+ */
+
+
+
 package com.tutorial.main;
 
-import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.image.BufferStrategy;
+import java.awt.Graphics2D;
 import java.util.Random;
 
-public class Game extends Canvas implements Runnable {
+import javax.swing.JPanel;
+
+import com.map.TileManager;
+
+public class Game extends JPanel implements Runnable {
 	
 	private static final long serialVersionUID = 1550691097823471818L;
 	
 	final static int originalTileSize = 16;
 	final static int scale = 3;
 	
-	public final static int tileSize = originalTileSize * scale;
-	final static int maxScreenCol = 18;
-	final static int maxScreenRow = 14;
+	public final static int tileSize = originalTileSize * scale; // 48x48 tile
+	public final static int maxScreenCol = 16;
+	public final static int maxScreenRow = 12;
 	
-	public static final int WIDTH = tileSize * maxScreenCol, HEIGHT = tileSize * maxScreenRow;
+	public static final int WIDTH = tileSize * maxScreenCol + 16; // 768 pixels
+	public static final int HEIGHT = tileSize * maxScreenRow + 39; // 576 pixels
+	
+	// World Settings
+	public final int maxWorldCol = 64;
+	public final int maxWorldRow = 48;
+	public final int worldWidth = tileSize * maxWorldCol;
+	public final int worldHeight = tileSize * maxWorldRow;
 	
 	private Thread thread;
 	private boolean running = false;
 	
+	private TileManager tileM = new TileManager(this);
 	private Random r;
 	private HUD hud;
 	private Handler handler;
 	private Spawn spawner;
 	private Menu menu;
+	private shootMechanic mouseClick;
 	
 	public enum STATE {
 		Menu,
 		Help,
-		Game
+		Game,
+		gameOver
 	}
 	
 	public STATE gameState = STATE.Menu;
@@ -40,11 +61,15 @@ public class Game extends Canvas implements Runnable {
 		
 		handler = new Handler();
 		menu = new Menu(this, handler);
+		mouseClick = new shootMechanic(this, handler);
 
 		this.addKeyListener(new KeyInput(handler));
 		this.addMouseListener(menu);
-
+		this.addMouseListener(mouseClick);
+		
+//		System.out.println("Window size: " + WIDTH + " x " + HEIGHT);
 		new Window(WIDTH, HEIGHT, "ZOMBEEZ", this);
+//		System.out.println("Window size: " + WIDTH + " x " + HEIGHT);
 		
 		hud = new HUD();
 		spawner = new Spawn(handler, hud);
@@ -90,7 +115,7 @@ public class Game extends Canvas implements Runnable {
 				delta--;
 			}
 			if (running)
-				render();
+				repaint();
 			frames++;
 			
 			if (System.currentTimeMillis() - timer > 1000) {
@@ -107,6 +132,16 @@ public class Game extends Canvas implements Runnable {
 		if (gameState == STATE.Game) {
 			hud.tick();
 			spawner.tick();
+			
+			if (HUD.HEALTH <= 0) {
+				HUD.HEALTH = 100;
+				HUD.greenHEALTH = 255;
+				HUD.redHEALTH = 0;
+				handler.clearEnemies();
+				handler.clearPlayer();
+				gameState = STATE.gameOver;
+			}
+			
 		}
 		
 		else if (gameState == STATE.Menu) {
@@ -115,30 +150,26 @@ public class Game extends Canvas implements Runnable {
 		
 	}
 	
-	private void render() {
-		BufferStrategy bs = this.getBufferStrategy();
-		if (bs == null) {
-			this.createBufferStrategy(3);
-			return;
-		}
+	public void paintComponent(Graphics g) {
 		
-		Graphics g = bs.getDrawGraphics();
 		
-		g.setColor(Color.gray);
-		g.fillRect(0, 0, WIDTH, HEIGHT);
+		Graphics2D g2 = (Graphics2D)g;
 		
-		handler.render(g);
+		g2.setColor(Color.gray);
+		g2.fillRect(0, 0, WIDTH, HEIGHT);
 		
 		if (gameState == STATE.Game) {
-			hud.render(g);
+			tileM.render(g2);
+			handler.render(g);
+			hud.render(g2);
 		}
 		
-		else if (gameState == STATE.Menu || gameState == STATE.Help) {
+		else if (gameState == STATE.Menu || gameState == STATE.Help || gameState == STATE.gameOver) {
 			menu.render(g);
 		}
 		
-		g.dispose();
-		bs.show();
+		g2.dispose();
+//		bs.show();
 		
 	}
 	
