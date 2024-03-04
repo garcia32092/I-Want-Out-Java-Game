@@ -31,10 +31,10 @@ public class Door extends GameObject {
 			findPlayer();
 		
 		if (player != null) {
-			if (getSolidBounds().intersects(player.getSolidBounds()) && player.hasKey) {
+			if (getSolidBounds().intersects(player.getSolidBounds()) && (player.hasKey() == true)) {
 				//collision code
 				handler.removeObject(this);
-				player.hasKey = false;
+				player.useKey();;
 			}
 		}
 	}

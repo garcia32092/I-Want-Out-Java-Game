@@ -4,15 +4,21 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.Shape;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public class Key extends GameObject {
 	
-	Handler handler;
-	Player player;
+	private Handler handler;
+	private Player player;
 
 	public Key(Game game, float worldX, float worldY, ID id, Handler handler) {
 		super(game, worldX, worldY, id);
 		this.handler = handler;
+		
+		getKeyImage();
 	}
 	
 	public void findPlayer() {
@@ -29,10 +35,10 @@ public class Key extends GameObject {
 			findPlayer();
 		
 		if (player != null) {
-			if (getSolidBounds().intersects(player.getSolidBounds()) && !player.hasKey) {
+			if (getSolidBounds().intersects(player.getSolidBounds()) && (player.hasKey() == false)) {
 				//collision code
 				handler.removeObject(this);
-				player.hasKey = true;
+				player.pickUpKey();
 			}
 		}
 	}
@@ -50,8 +56,96 @@ public class Key extends GameObject {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	private void getKeyImage() {
+		
+		try {
+			stand = ImageIO.read(getClass().getResourceAsStream("/keys/key1.png"));
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public void render(Graphics g) {
+		
+		BufferedImage image = stand;
+		
+//		switch(direction) {
+//		case "stand":
+//			image = stand;
+//			break;
+//		case "up":
+//			if (spriteNum == 1) {
+//				image = up1;
+//			}
+//			if (spriteNum == 2) {
+//				image = up2;
+//			}
+//			break;
+//		case "down":
+//			if (spriteNum == 1) {
+//				image = down1;
+//			}
+//			if (spriteNum == 2) {
+//				image = down2;
+//			}
+//			break;
+//		case "left":
+//			if (spriteNum == 1) {
+//				image = left1;
+//			}
+//			if (spriteNum == 2) {
+//				image = left2;
+//			}
+//			break;
+//		case "right":
+//			if (spriteNum == 1) {
+//				image = right1;
+//			}
+//			if (spriteNum == 2) {
+//				image = right2;
+//			}
+//			break;
+//		case "upright":
+//			if (spriteNum == 1) {
+//				image = right1;
+//			}
+//			if (spriteNum == 2) {
+//				image = right2;
+//			}
+//			break;
+//		case "downright":
+//			if (spriteNum == 1) {
+//				image = right1;
+//			}
+//			if (spriteNum == 2) {
+//				image = right2;
+//			}
+//			break;
+//		case "upleft":
+//			if (spriteNum == 1) {
+//				image = left1;
+//			}
+//			if (spriteNum == 2) {
+//				image = left2;
+//			}
+//			break;
+//		case "downleft":
+//			if (spriteNum == 1) {
+//				image = left1;
+//			}
+//			if (spriteNum == 2) {
+//				image = left2;
+//			}
+//			break;
+//		}
+		
+		g.drawImage(image, (int)worldX, (int)worldY, Game.tileSize/2, Game.tileSize/2, null);
+		
+		// create visible hit box for getBounds()
+		g.setColor(Color.GREEN);
+//		g.drawRect((int)worldX + 12, (int)worldY + 24, 23, 23);
 		g.setColor(Color.BLUE);
 		g.drawRect((int)worldX, (int)worldY, 16, 32);
 	}

@@ -18,7 +18,7 @@ public class Player extends GameObject {
 	// use it to make player faster with upgrade... should also help with animation stopping instead of standing...
 	KeyInput keyIn = new KeyInput(handler);
 	Game game;
-	boolean hasKey;
+	private boolean hasKey, hasMachineGun;
 	
 	public Player(Game game, int x, int y, ID id, Handler handler) {
 		super(game, x, y, id);
@@ -54,6 +54,18 @@ public class Player extends GameObject {
         return ellipse;
 	}
 	
+	public void pickUpKey() {
+		this.hasKey = true;
+	}
+	
+	public void useKey() {
+		this.hasKey = false;
+	}
+	
+	public boolean hasKey() {
+		return this.hasKey;
+	}
+	
 	public void tick() {
 		checkCollision();
 		
@@ -68,11 +80,6 @@ public class Player extends GameObject {
 		} else {
 	        velX = 0;
 		}
-		
-//		x = Game.clampLoop((int)x, -12, Game.WIDTH - 34);
-//		y = Game.clampLoop((int)y, -12, Game.HEIGHT - 58);
-		
-//		handler.addObject(new Trail(x, y, ID.Trail, Color.CYAN, 32, 32, 0.08f, handler));
 		
 		enemyCollision();
 		
