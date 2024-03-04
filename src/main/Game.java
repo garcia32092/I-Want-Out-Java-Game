@@ -143,6 +143,7 @@ public class Game extends JPanel implements Runnable {
 			hud.tick();
 			spawner.tick();
 			cam.tick();
+			sMechanic.tick();
 			
 			if (HUD.HEALTH <= 0) {
 				gameState = STATE.gameOver;

@@ -141,7 +141,7 @@ public class MachineGun extends GameObject {
 //			break;
 //		}
 		
-		g.drawImage(image, (int)worldX, (int)worldY, Game.tileSize-8, Game.tileSize-8, null);
+		g.drawImage(image, (int)worldX, (int)worldY, Game.tileSize-10, Game.tileSize-10, null);
 		
 		// create visible hit box for getBounds()
 		g.setColor(Color.GREEN);
