@@ -24,6 +24,7 @@ public class Player extends GameObject {
 		super(game, x, y, id);
 		this.direction = "stand";
 		this.hasKey = false;
+		this.hasMachineGun = false;
 		this.handler = handler;
 		this.game = game;
 		
@@ -64,6 +65,14 @@ public class Player extends GameObject {
 	
 	public boolean hasKey() {
 		return this.hasKey;
+	}
+	
+	public void pickUpMachineGun() {
+		this.hasMachineGun = true;
+	}
+	
+	public boolean hasMachineGun() {
+		return this.hasMachineGun;
 	}
 	
 	public void tick() {

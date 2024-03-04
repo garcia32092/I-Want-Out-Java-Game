@@ -36,6 +36,7 @@ public class Menu extends MouseAdapter {
 				camera.findPlayer();
 				handler.addObject(new Door(game, game.tileSize * 27, game.tileSize * 37, ID.Door, handler));
 				handler.addObject(new Key(game, game.tileSize * 22, game.tileSize * 22, ID.Key, handler));
+				handler.addObject(new MachineGun(game, game.tileSize * 35, game.tileSize * 37, ID.MachineGun, handler));
 //				handler.addObject(new Zombie(game, game.tileSize * 20, game.tileSize * 20, ID.Zombie, handler));
 				return;
 			}

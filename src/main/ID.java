@@ -10,6 +10,7 @@ public enum ID {
 	WebSpider(),
 	Web(),
 	Door(),
-	Key();
+	Key(),
+	MachineGun();
 
 }
