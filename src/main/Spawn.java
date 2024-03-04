@@ -39,29 +39,29 @@ public class Spawn {
 		
 		if (player == null) {
 			findPlayer();
-		}
-		
-		if (handler.numberOfZombies() < NUMOFZOMBIES && player != null && game.tileM != null) {
-			scoreKeep = 0;
-			hud.setLevel(hud.getLevel() + 1);
+		} else {
+			if (handler.numberOfZombies() < NUMOFZOMBIES && player != null && game.tileM != null) {
+				scoreKeep = 0;
+				hud.setLevel(hud.getLevel() + 1);
 
-			Shape playerBounds = player.getDistanceBounds(); // Assuming you have a method to get the player
-	        List<Point> spawnLocations = game.tileM.findTileSpawnsWithinBounds(playerBounds, "Grass Tombstone");
-	        Collections.shuffle(spawnLocations); // Randomize spawn locations
-	        for (int i = 0; i < Math.min(spawnLocations.size(), NUMOFZOMBIES - handler.numberOfZombies()); i++) {
-	            Point p = spawnLocations.get(i);
-	            handler.addObject(new Zombie(game, p.x * game.tileSize, p.y * game.tileSize, ID.Zombie, handler));
-	        }
-		}
-		
-		if (handler.numberOfWebSpiders() < NUMOFSPIDERS && player != null && game.tileM != null) {
-			Shape playerBounds = player.getDistanceBounds(); // Assuming you have a method to get the player
-	        List<Point> spawnLocations = game.tileM.findTileSpawnsWithinBounds(playerBounds, "Spider Hole");
-	        Collections.shuffle(spawnLocations); // Randomize spawn locations
-	        for (int i = 0; i < Math.min(spawnLocations.size(), NUMOFSPIDERS - handler.numberOfZombies()); i++) {
-	            Point p = spawnLocations.get(i);
-	            handler.addObject(new WebSpider(game, p.x * game.tileSize, p.y * game.tileSize, ID.WebSpider, handler));
-	        }
+				Shape playerBounds = player.getDistanceBounds(); // Assuming you have a method to get the player
+		        List<Point> spawnLocations = game.tileM.findTileSpawnsWithinBounds(playerBounds, "Grass Tombstone");
+		        Collections.shuffle(spawnLocations); // Randomize spawn locations
+		        for (int i = 0; i < Math.min(spawnLocations.size(), NUMOFZOMBIES - handler.numberOfZombies()); i++) {
+		            Point p = spawnLocations.get(i);
+		            handler.addObject(new Zombie(game, p.x * game.tileSize, p.y * game.tileSize, ID.Zombie, handler));
+		        }
+			}
+			
+			if (handler.numberOfWebSpiders() < NUMOFSPIDERS && player != null && game.tileM != null) {
+				Shape playerBounds = player.getDistanceBounds(); // Assuming you have a method to get the player
+		        List<Point> spawnLocations = game.tileM.findTileSpawnsWithinBounds(playerBounds, "Spider Hole");
+		        Collections.shuffle(spawnLocations); // Randomize spawn locations
+		        for (int i = 0; i < Math.min(spawnLocations.size(), NUMOFSPIDERS - handler.numberOfWebSpiders()); i++) {
+		            Point p = spawnLocations.get(i);
+		            handler.addObject(new WebSpider(game, p.x * game.tileSize, p.y * game.tileSize, ID.WebSpider, handler));
+		        }
+			}
 		}
 	}
 }
