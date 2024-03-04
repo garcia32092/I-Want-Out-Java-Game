@@ -69,17 +69,17 @@ public class Handler {
 	}
 	
 	public int numberOfWebSpiders() {
-		int numOfZombies = 0;
+		int numOfWebSpiders = 0;
 		
 		Iterator<GameObject> iterator = object.iterator();
 		while (iterator.hasNext()) {
 			GameObject currentObject = iterator.next();
 			if (currentObject.getId() == ID.WebSpider) {
-				numOfZombies++;
+				numOfWebSpiders++;
 			}
 		}
 		
-		return numOfZombies;
+		return numOfWebSpiders;
 	}
 
 }
