@@ -18,10 +18,12 @@ public class Player extends GameObject {
 	// use it to make player faster with upgrade... should also help with animation stopping instead of standing...
 	KeyInput keyIn = new KeyInput(handler);
 	Game game;
+	boolean hasKey;
 	
 	public Player(Game game, int x, int y, ID id, Handler handler) {
 		super(game, x, y, id);
 		this.direction = "stand";
+		this.hasKey = false;
 		this.handler = handler;
 		this.game = game;
 		

@@ -34,6 +34,8 @@ public class Menu extends MouseAdapter {
 //				handler.addObject(new Player(game.WIDTH/2-32, game.HEIGHT/2-32, ID.Player, handler, game)); OLD SPAWN POINT
 				handler.addObject(new Player(game, game.tileSize * 20, game.tileSize * 24, ID.Player, handler));
 				camera.findPlayer();
+				handler.addObject(new Door(game, game.tileSize * 27, game.tileSize * 37, ID.Door, handler));
+				handler.addObject(new Key(game, game.tileSize * 22, game.tileSize * 22, ID.Key, handler));
 //				handler.addObject(new Zombie(game, game.tileSize * 20, game.tileSize * 20, ID.Zombie, handler));
 				return;
 			}

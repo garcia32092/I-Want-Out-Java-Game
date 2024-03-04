@@ -8,6 +8,8 @@ public enum ID {
 	Trail(),
 	Bullet(),
 	WebSpider(),
-	Web();
+	Web(),
+	Door(),
+	Key();
 
 }
