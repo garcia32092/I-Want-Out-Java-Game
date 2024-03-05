@@ -49,7 +49,7 @@ public class Spawn {
 		        Collections.shuffle(spawnLocations); // Randomize spawn locations
 		        for (int i = 0; i < Math.min(spawnLocations.size(), NUMOFZOMBIES - handler.numberOfZombies()); i++) {
 		            Point p = spawnLocations.get(i);
-		            handler.addObject(new Zombie(game, p.x * game.tileSize, p.y * game.tileSize, ID.Zombie, handler));
+//		            handler.addObject(new Zombie(game, p.x * game.tileSize, p.y * game.tileSize, ID.Zombie, handler));
 		        }
 			}
 			
