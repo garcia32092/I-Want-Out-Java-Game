@@ -5,8 +5,6 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.Shape;
 
-import main.Game.STATE;
-
 public class Bullet extends GameObject {
 	
 	private Game game;
@@ -16,6 +14,8 @@ public class Bullet extends GameObject {
 	private WebSpider webSpider;
 	private Web web;
 	private TileManager tileM;
+	private static int bulletDmg = 25;
+	private static Color bulletColor = Color.BLACK;
 	
 	public Bullet(Game game, float x, float y, ID id, Handler handler, TileManager tileM) {
 		super(game, x, y ,id);
@@ -44,6 +44,20 @@ public class Bullet extends GameObject {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public int getBulletDmg() {
+		return bulletDmg;
+	}
+
+	public static void buffBulletDmg() {
+		bulletDmg += 50;
+		bulletColor = Color.RED;
+	}
+	
+	public static void resetBullets() {
+		bulletDmg = 25;
+		bulletColor = Color.BLACK;
+	}
 	
 	public void tick() {
 		worldX += velX;
@@ -65,21 +79,21 @@ public class Bullet extends GameObject {
 				if(getHitBounds().intersects(tempObject.getHitBounds())) {
 					//collision code
 					zombie = (Zombie)tempObject;
-					zombie.setNormalZombieHP(zombie.getNormalZombieHP() - 25);
+					zombie.setNormalZombieHP(zombie.getNormalZombieHP() - getBulletDmg());
 					handler.removeObject(this);
 				}
 			} else if (tempObject.getId() == ID.WebSpider) {
 				if(getHitBounds().intersects(tempObject.getHitBounds())) {
 					//collision code
 					webSpider = (WebSpider)tempObject;
-					webSpider.setWebSpiderHP(webSpider.getWebSpiderHP() - 25);
+					webSpider.setWebSpiderHP(webSpider.getWebSpiderHP() - getBulletDmg());
 					handler.removeObject(this);
 				}
 			} else if (tempObject.getId() == ID.Web) {
 				if(getHitBounds().intersects(tempObject.getHitBounds())) {
 					//collision code
 					web = (Web)tempObject;
-					web.setWebHP(web.getWebHP() - 25);
+					web.setWebHP(web.getWebHP() - getBulletDmg());
 					handler.removeObject(this);
 				}
 			}
@@ -99,7 +113,7 @@ public class Bullet extends GameObject {
 	}
 	
 	public void render (Graphics g) {
-		g.setColor(Color.BLACK);
+		g.setColor(bulletColor);
 		g.fillRect((int) worldX, (int) worldY, 5, 5);
 	}
 }

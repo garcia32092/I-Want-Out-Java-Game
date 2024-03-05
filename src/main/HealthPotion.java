@@ -9,16 +9,16 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Key extends GameObject {
+public class HealthPotion extends GameObject {
 	
 	private Handler handler;
 	private Player player;
 
-	public Key(Game game, float worldX, float worldY, ID id, Handler handler) {
+	public HealthPotion(Game game, float worldX, float worldY, ID id, Handler handler) {
 		super(game, worldX, worldY, id);
 		this.handler = handler;
 		
-		getKeyImage();
+		getHealthPotionImage();
 	}
 	
 	public void findPlayer() {
@@ -35,10 +35,14 @@ public class Key extends GameObject {
 			findPlayer();
 		
 		if (player != null) {
-			if (getSolidBounds().intersects(player.getSolidBounds()) && (player.hasKey() == false)) {
+			if (getSolidBounds().intersects(player.getSolidBounds())) {
 				//collision code
 				handler.removeObject(this);
-				player.pickUpKey();
+				HUD.HEALTH += 18;
+				if (HUD.greenHEALTH < 255)
+					HUD.greenHEALTH += 45;
+				if (HUD.redHEALTH > 0)
+					HUD.redHEALTH -= 45;
 			}
 		}
 	}
@@ -57,10 +61,10 @@ public class Key extends GameObject {
 		return null;
 	}
 	
-	private void getKeyImage() {
+	private void getHealthPotionImage() {
 		
 		try {
-			stand = ImageIO.read(getClass().getResourceAsStream("/keys/key1.png"));
+			stand = ImageIO.read(getClass().getResourceAsStream("/potions/healthpotion.png"));
 		}
 		catch(IOException e) {
 			e.printStackTrace();

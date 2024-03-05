@@ -11,6 +11,8 @@ public enum ID {
 	Web(),
 	Door(),
 	Key(),
+	BuffPotion,
+	HealthPotion,
 	MachineGun(),
 	Exit();
 

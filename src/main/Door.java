@@ -143,7 +143,7 @@ public class Door extends GameObject {
 //		}
 		
 		g.drawImage(image, (int)worldX, (int)worldY, Game.tileSize*2, Game.tileSize*2, null);
-		g.setColor(Color.GREEN);
+		g.setColor(Color.YELLOW);
 		g.drawRect((int)worldX, (int)worldY, 96, 96);
 	}
 }

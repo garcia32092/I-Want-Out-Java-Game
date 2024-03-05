@@ -65,9 +65,15 @@ public class Zombie extends GameObject {
 		}
 				
 		if (normalZombieHp <= 0) {
-			if (++killCount == 5) {
-	            handler.addObject(new Key(game, (int)this.worldX, (int)this.worldY, ID.Key, handler));
-	        }
+			if (++killCount % 35 == 0 || killCount == 20) {
+			    if (killCount == 20) {
+			        // Drop a key only the first time 20 zombies have been killed
+			        handler.addObject(new Key(game, (int)this.worldX, (int)this.worldY, ID.Key, handler));
+			    } else {
+			        // For every subsequent 50th kill, drop a health potion instead
+			        handler.addObject(new HealthPotion(game, (int)this.worldX, (int)this.worldY, ID.HealthPotion, handler));
+			    }
+			}
 			handler.removeObject(this);
 		}
 		

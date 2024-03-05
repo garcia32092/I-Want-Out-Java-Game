@@ -55,7 +55,7 @@ public class Menu extends MouseAdapter {
 		
 		//BACK button for HELP
 		else if (game.gameState == STATE.Help) {
-			if (mouseOver(mx, my, (Game.WIDTH / 2) - 350, 20, 150, 50)) {
+			if (mouseOver(mx, my, (Game.WIDTH / 2) - 355, 20, 200, 50)) {
 				game.gameState = STATE.Menu;
 				return;
 			}
@@ -67,10 +67,15 @@ public class Menu extends MouseAdapter {
 				game.restart();
 				game.gameState = STATE.Game;
 				Zombie.resetKillCount();
+				WebSpider.resetKillCount();
+				Bullet.resetBullets();
 				game.addKeyListener(game.keyIn);
 				handler.clearHandler();
 				handler.addObject(new Player(game, game.tileSize * 20, game.tileSize * 24, ID.Player, handler));
 				camera.findPlayer();
+				handler.addObject(new Door(game, game.tileSize * 27, game.tileSize * 37, ID.Door, handler));
+				handler.addObject(new MachineGun(game, game.tileSize * 35, game.tileSize * 37, ID.MachineGun, handler));
+				handler.addObject(new Exit(game, game.tileSize * 67, game.tileSize * 13, ID.Exit, handler));
 				return;
 			}
 		}
@@ -134,7 +139,7 @@ public class Menu extends MouseAdapter {
 		
 		else if (game.gameState == STATE.Help) {
 			Font fnt = new Font("Algerian", 0, 95);
-			Font fnt2 = new Font("Garamond", 0, 38);
+			Font fnt2 = new Font("Garamond", 0, 30);
 			Font fnt3 = new Font("Garamond", 0, 32);
 			
 			g.setFont(fnt);
@@ -142,12 +147,17 @@ public class Menu extends MouseAdapter {
 			g.drawString("HELP", (Game.WIDTH / 2) - 125, 130);
 			
 			g.setFont(fnt3);
-			g.drawString("Kill zombies. Find the key. Get the machine gun. Escape.", (Game.WIDTH / 2) - 355, 250);
-			g.drawString("If you can...bitch", (Game.WIDTH / 2) - 120, 350);
+			g.drawString("The zombies and spiders hold the keys.", (Game.WIDTH / 2) - 260, 240);
+			g.drawString("Aim for the head.", (Game.WIDTH / 2) - 130, 285);
+			g.drawString("The spiders have some sweet bullet upgrades too.", (Game.WIDTH / 2) - 300, 330);
+			g.drawString("Watch out for their webs tho. They hurt.", (Game.WIDTH / 2) - 260, 375);
+			g.drawString("How bad do you want out?", (Game.WIDTH / 2) - 185, 420);
+			g.drawString("Escape.", (Game.WIDTH / 2) - 75, 465);
+			g.drawString("If you can... bitch", (Game.WIDTH / 2) - 125, 510);
 			
 			g.setFont(fnt2);
-			g.drawRect((Game.WIDTH / 2) - 350, 20, 150, 50);
-			g.drawString("Back", 85, 55);
+			g.drawRect((Game.WIDTH / 2) - 355, 20, 200, 50);
+			g.drawString("Back To Menu", 50, 55);
 		}
 		
 		else if (game.gameState == STATE.gameOver) {
