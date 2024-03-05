@@ -36,9 +36,8 @@ public class Menu extends MouseAdapter {
 				handler.addObject(new Player(game, game.tileSize * 20, game.tileSize * 24, ID.Player, handler));
 				camera.findPlayer();
 				handler.addObject(new Door(game, game.tileSize * 27, game.tileSize * 37, ID.Door, handler));
-				handler.addObject(new Key(game, game.tileSize * 22, game.tileSize * 22, ID.Key, handler));
 				handler.addObject(new MachineGun(game, game.tileSize * 35, game.tileSize * 37, ID.MachineGun, handler));
-//				handler.addObject(new Zombie(game, game.tileSize * 20, game.tileSize * 20, ID.Zombie, handler));
+				handler.addObject(new Exit(game, game.tileSize * 67, game.tileSize * 13, ID.Exit, handler));
 				return;
 			}
 			
@@ -64,6 +63,19 @@ public class Menu extends MouseAdapter {
 		
 		
 		else if (game.gameState == STATE.gameOver) {
+			if (mouseOver(mx, my, (Game.WIDTH / 2) - 120, 480, Game.tileSize * 5, 72)) {
+				game.restart();
+				game.gameState = STATE.Game;
+				Zombie.resetKillCount();
+				game.addKeyListener(game.keyIn);
+				handler.clearHandler();
+				handler.addObject(new Player(game, game.tileSize * 20, game.tileSize * 24, ID.Player, handler));
+				camera.findPlayer();
+				return;
+			}
+		}
+		
+		else if (game.gameState == STATE.gameWon) {
 			if (mouseOver(mx, my, (Game.WIDTH / 2) - 120, 480, Game.tileSize * 5, 72)) {
 				game.restart();
 				game.gameState = STATE.Game;
@@ -150,6 +162,36 @@ public class Menu extends MouseAdapter {
 			if (Zombie.getKillCount() <= 0) {
 				g.setFont(fnt3);
 				g.drawString("You didn't kill any zombies... This is awkward...", (Game.WIDTH / 2) - 310, 300);
+			}
+			
+			else if (Zombie.getKillCount() >= 1 && Zombie.getKillCount() <= 24) {
+				g.setFont(fnt3);
+				g.drawString("You killed " + Zombie.getKillCount() + " zombies. Nice...", (Game.WIDTH / 2) - 190, 300);
+			}
+			
+			else if (Zombie.getKillCount() >= 2) {
+				g.setFont(fnt3);
+				g.drawString("Whoa! You killed " + Zombie.getKillCount() + " zombies!", (Game.WIDTH / 2) - 185, 300);
+			}
+			
+			g.setFont(fnt2);
+			g.drawRect((Game.WIDTH / 2) - 120, 480, Game.tileSize * 5, 72);
+			g.drawString("Try again?", (Game.WIDTH / 2) - 75, 530);
+						
+		}
+		
+		else if (game.gameState == STATE.gameWon) {
+			Font fnt = new Font("Algerian", 0, 95);
+			Font fnt2 = new Font("Garamond", 0, 38);
+			Font fnt3 = new Font("Garamond", 0, 32);
+			
+			g.setFont(fnt);
+			g.setColor(Color.WHITE);
+			g.drawString("You won!", (Game.WIDTH / 2) - 225, 130);
+			
+			if (Zombie.getKillCount() <= 0) {
+				g.setFont(fnt3);
+				g.drawString("You didn't kill any zombies... Cheating ass bitch...", (Game.WIDTH / 2) - 310, 300);
 			}
 			
 			else if (Zombie.getKillCount() >= 1 && Zombie.getKillCount() <= 24) {

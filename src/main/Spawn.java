@@ -13,14 +13,14 @@ public class Spawn {
 	private HUD hud;
 	private Random r = new Random();
 	GameObject player = null;
-	private final int NUMOFZOMBIES = 8;
-	private final int NUMOFSPIDERS = 5;
+	private final int NUMOFZOMBIES = 30;
+	private final int NUMOFSPIDERS = 30;
 	
 	private int zombieSpawnCooldown = 0;
-	private final int zombieSpawnDelay = 60; // Adjust the delay as needed for zombies
+	private final int zombieSpawnDelay = 45; // Adjust the delay as needed for zombies
 
 	private int spiderSpawnCooldown = 0;
-	private final int spiderSpawnDelay = 120; // Adjust the delay as needed for spiders
+	private final int spiderSpawnDelay = 60; // Adjust the delay as needed for spiders
 
 	
 	private int scoreKeep = 0;

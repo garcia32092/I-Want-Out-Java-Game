@@ -92,7 +92,7 @@ public class WebSpider extends GameObject {
 
     @Override
     public Rectangle getHitBounds() {
-        return new Rectangle((int)worldX, (int)worldY, 32, 32);
+        return new Rectangle((int)worldX + 8, (int)worldY + 8, 34, 32);
     }
 
     @Override
@@ -158,8 +158,8 @@ public class WebSpider extends GameObject {
 		g.drawImage(image, (int)worldX, (int)worldY, Game.tileSize, Game.tileSize, null);
 		
 		// create visible hit box for getBounds()
-		g.setColor(Color.RED);
-//		g.drawRect((int)worldX + 15, (int)worldY + 4, 17, 24); // FOR TESTING
+//		g.setColor(Color.RED);
+//		g.drawRect((int)worldX + 8, (int)worldY + 8, 34, 32); // FOR TESTING
 		
 		// create visible hit box for getBounds()
 		g.setColor(Color.GREEN);

@@ -49,7 +49,7 @@ public class MachineGun extends GameObject {
 	}
 
 	public Rectangle getSolidBounds() {
-		return new Rectangle((int)worldX, (int)worldY, 16, 32);
+		return new Rectangle((int)worldX + 4, (int)worldY + 4, 28, 32);
 	}
 
 	public Shape getDistanceBounds() {
@@ -144,9 +144,9 @@ public class MachineGun extends GameObject {
 		g.drawImage(image, (int)worldX, (int)worldY, Game.tileSize-10, Game.tileSize-10, null);
 		
 		// create visible hit box for getBounds()
-		g.setColor(Color.GREEN);
+//		g.setColor(Color.GREEN);
 //		g.drawRect((int)worldX + 12, (int)worldY + 24, 23, 23);
-		g.setColor(Color.BLUE);
-		g.drawRect((int)worldX, (int)worldY, 16, 32);
+//		g.setColor(Color.BLUE);
+//		g.drawRect((int)worldX + 4, (int)worldY + 4, 28, 32);
 	}
 }

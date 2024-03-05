@@ -35,7 +35,7 @@ public class Player extends GameObject {
 	}
 	
 	public Rectangle getHitBounds() {
-		return new Rectangle((int)worldX + 15, (int)worldY + 6, 17, 37);
+		return new Rectangle((int)worldX + 14, (int)worldY + 6, 20, 38);
 	}
 	
 
@@ -240,8 +240,10 @@ public class Player extends GameObject {
 		g.drawImage(image, (int)worldX, (int)worldY, Game.tileSize, Game.tileSize, null);
 		
 		// create visible hit box for getBounds()
-		g.setColor(Color.GREEN);
-		g.drawRect((int)worldX + 12, (int)worldY + 24, 23, 23);
+//		g.setColor(Color.GREEN);
+//		g.drawRect((int)worldX + 12, (int)worldY + 24, 23, 23);
+//		g.setColor(Color.RED);
+//		g.drawRect((int)worldX + 14, (int)worldY + 6, 20, 38);
 //		((Graphics2D) g).draw(getDistanceBounds()); // FOR TESTING
 		
 	}

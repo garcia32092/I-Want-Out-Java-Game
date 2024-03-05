@@ -11,6 +11,7 @@ public enum ID {
 	Web(),
 	Door(),
 	Key(),
-	MachineGun();
+	MachineGun(),
+	Exit();
 
 }

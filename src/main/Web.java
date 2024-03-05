@@ -82,9 +82,9 @@ public class Web extends GameObject {
     public Rectangle getHitBounds() {
     	Rectangle rectangle;
         if (!isStationary) {
-        	rectangle = new Rectangle((int) worldX, (int) worldY, 4, 4);
+        	rectangle = new Rectangle((int) worldX + 28, (int) worldY + 28, 4, 4);
         } else {
-        	rectangle = new Rectangle((int) worldX, (int) worldY, 16, 16);
+        	rectangle = new Rectangle((int) worldX + 3, (int) worldY + 3, 30, 30);
         }
         return rectangle;
     }
@@ -113,13 +113,13 @@ public class Web extends GameObject {
         	
         	BufferedImage image = stand;
     		
-    		g.drawImage(image, (int)worldX, (int)worldY, Game.tileSize, Game.tileSize, null);
+    		g.drawImage(image, (int)worldX, (int)worldY, Game.tileSize/2 + 12, Game.tileSize/2 + 12, null);
         	
-            g.setColor(Color.GREEN); // Stationary web color
-//            g.drawRect((int) worldX, (int) worldY, 16, 16); // FOR TESTING
+//            g.setColor(Color.GREEN); // Stationary web color
+//            g.drawRect((int) worldX + 3, (int) worldY + 3, 30, 30); // FOR TESTING
         } else {
             g.setColor(Color.WHITE); // Projectile web color
-            g.fillRect((int) worldX, (int) worldY, 4, 4);
+            g.fillRect((int) worldX + 28, (int) worldY + 28, 4, 4);
         }
     }
 }

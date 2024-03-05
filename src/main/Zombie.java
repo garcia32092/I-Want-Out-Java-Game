@@ -38,7 +38,7 @@ public class Zombie extends GameObject {
 
 	public Rectangle getHitBounds() {
 		// TODO MAYBE ADD BODY HIT BOX FOR BODY SHOTS THAT DO LESS DAMAGE THAN THE HEAD SHOTS??? (THIS HIT BOX IS MOSTLY ON THE HEAD)
-		return new Rectangle((int)worldX + 15, (int)worldY + 4, 17, 24);
+		return new Rectangle((int)worldX + 14, (int)worldY + 2, 17, 20);
 	}
 
 
@@ -65,8 +65,10 @@ public class Zombie extends GameObject {
 		}
 				
 		if (normalZombieHp <= 0) {
+			if (++killCount == 5) {
+	            handler.addObject(new Key(game, (int)this.worldX, (int)this.worldY, ID.Key, handler));
+	        }
 			handler.removeObject(this);
-			killCount++;
 		}
 		
 		spriteCounter++;
@@ -185,12 +187,12 @@ public class Zombie extends GameObject {
 		g.drawImage(image, (int)worldX, (int)worldY, Game.tileSize, Game.tileSize, null);
 		
 		// create visible hit box for getBounds()
-		g.setColor(Color.RED);
-		g.drawRect((int)worldX + 15, (int)worldY + 4, 17, 24);
-		
-		// create visible hit box for getBounds()
-		g.setColor(Color.GREEN);
-		g.drawRect((int)worldX + 12, (int)worldY + 24, 23, 23);
+//		g.setColor(Color.RED);
+//		g.drawRect((int)worldX + 14, (int)worldY + 2, 17, 20);
+//		
+//		// create visible hit box for getBounds()
+//		g.setColor(Color.GREEN);
+//		g.drawRect((int)worldX + 12, (int)worldY + 24, 23, 23);
 		
 	}
 

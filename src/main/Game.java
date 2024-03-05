@@ -56,7 +56,8 @@ public class Game extends JPanel implements Runnable {
 		Menu,
 		Help,
 		Game,
-		gameOver
+		gameOver,
+		gameWon
 	}
 	
 	public STATE gameState = STATE.Menu;
@@ -181,7 +182,7 @@ public class Game extends JPanel implements Runnable {
 			hud.render(g2);
 		}
 		
-		else if (gameState == STATE.Menu || gameState == STATE.Help || gameState == STATE.gameOver) {
+		else if (gameState == STATE.Menu || gameState == STATE.Help || gameState == STATE.gameOver || gameState == STATE.gameWon) {
 			menu.render(g2);
 		}
 		
