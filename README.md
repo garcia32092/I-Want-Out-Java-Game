@@ -31,7 +31,7 @@ Contributions are welcome! If you have ideas for new features, bug fixes, or imp
 
 ## Acknowledgments
 - Special thanks to all testers for their valuable feedback and suggestions.
-- Inspired by RealTutsGML ([URL]https://www.youtube.com/@RealTutsGML) & RyiSnow ([URL](https://www.youtube.com/c/RyiSnow)).
+- Inspired by [RealTutsGML](https://www.youtube.com/@RealTutsGML) & [RyiSnow](https://www.youtube.com/c/RyiSnow).
 
 ## Contact
 For any inquiries or further information, feel free to reach out:
