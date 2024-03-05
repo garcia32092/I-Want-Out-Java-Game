@@ -16,6 +16,13 @@ public class Spawn {
 	private final int NUMOFZOMBIES = 8;
 	private final int NUMOFSPIDERS = 5;
 	
+	private int zombieSpawnCooldown = 0;
+	private final int zombieSpawnDelay = 60; // Adjust the delay as needed for zombies
+
+	private int spiderSpawnCooldown = 0;
+	private final int spiderSpawnDelay = 120; // Adjust the delay as needed for spiders
+
+	
 	private int scoreKeep = 0;
 //	private int levelKeep = 0;
 	
@@ -40,7 +47,7 @@ public class Spawn {
 		if (player == null) {
 			findPlayer();
 		} else {
-			if (handler.numberOfZombies() < NUMOFZOMBIES && player != null && game.tileM != null) {
+			if (handler.numberOfZombies() < NUMOFZOMBIES && player != null && game.tileM != null && zombieSpawnCooldown <= 0) {
 				scoreKeep = 0;
 				hud.setLevel(hud.getLevel() + 1);
 
@@ -49,18 +56,24 @@ public class Spawn {
 		        Collections.shuffle(spawnLocations); // Randomize spawn locations
 		        for (int i = 0; i < Math.min(spawnLocations.size(), NUMOFZOMBIES - handler.numberOfZombies()); i++) {
 		            Point p = spawnLocations.get(i);
-//		            handler.addObject(new Zombie(game, p.x * game.tileSize, p.y * game.tileSize, ID.Zombie, handler));
+		            handler.addObject(new Zombie(game, p.x * game.tileSize, p.y * game.tileSize, ID.Zombie, handler));
+		            zombieSpawnCooldown = zombieSpawnDelay;
 		        }
+			} else if (zombieSpawnCooldown > 0) {
+				zombieSpawnCooldown--;
 			}
 			
-			if (handler.numberOfWebSpiders() < NUMOFSPIDERS && player != null && game.tileM != null) {
+			if (handler.numberOfWebSpiders() < NUMOFSPIDERS && player != null && game.tileM != null && spiderSpawnCooldown <= 0) {
 				Shape playerBounds = player.getDistanceBounds(); // Assuming you have a method to get the player
 		        List<Point> spawnLocations = game.tileM.findTileSpawnsWithinBounds(playerBounds, "Spider Hole");
 		        Collections.shuffle(spawnLocations); // Randomize spawn locations
 		        for (int i = 0; i < Math.min(spawnLocations.size(), NUMOFSPIDERS - handler.numberOfWebSpiders()); i++) {
 		            Point p = spawnLocations.get(i);
 		            handler.addObject(new WebSpider(game, p.x * game.tileSize, p.y * game.tileSize, ID.WebSpider, handler));
+		            spiderSpawnCooldown = spiderSpawnDelay;
 		        }
+			} else if (spiderSpawnCooldown > 0) {
+				spiderSpawnCooldown--;
 			}
 		}
 	}

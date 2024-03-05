@@ -11,6 +11,8 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 
 public class WebSpider extends GameObject {
+	
+	private static int killCount = 0;
     private Handler handler;
     private int tickCount = 0;
     private float webSpiderHP = 100;
@@ -46,6 +48,7 @@ public class WebSpider extends GameObject {
     	
     	if (webSpiderHP <= 0) {
 			handler.removeObject(this);
+			killCount++;
 		}
     	
         tickCount++;
@@ -124,6 +127,14 @@ public class WebSpider extends GameObject {
 
 	public void setWebSpiderHP(float webSpiderHP) {
 		this.webSpiderHP = webSpiderHP;
+	}
+	
+	public static int getKillCount() {
+		return killCount;
+	}
+	
+	public static void resetKillCount() {
+		killCount = 0;
 	}
 
 	@Override

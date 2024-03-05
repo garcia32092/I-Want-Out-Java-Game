@@ -55,7 +55,7 @@ public class Menu extends MouseAdapter {
 		
 		//BACK button for HELP
 		else if (game.gameState == STATE.Help) {
-			if (mouseOver(mx, my, (Game.WIDTH / 2) - 410, 20, 200, 50)) {
+			if (mouseOver(mx, my, (Game.WIDTH / 2) - 350, 20, 150, 50)) {
 				game.gameState = STATE.Menu;
 				return;
 			}
@@ -98,12 +98,12 @@ public class Menu extends MouseAdapter {
 	
 	public void render(Graphics g) {
 		if (game.gameState == STATE.Menu) {
-			Font fnt = new Font("arial", 1, 80);
-			Font fnt2 = new Font("arial", 1, 50);
+			Font fnt = new Font("Algerian", 0, 100);
+			Font fnt2 = new Font("Garamond", Font.BOLD, 50);
 			
 			g.setFont(fnt);
 			g.setColor(Color.GREEN);
-			g.drawString("I WANT OUT", (Game.WIDTH / 2) - 280, 130);
+			g.drawString("I WANT OUT", (Game.WIDTH / 2) - 265, 130);
 			
 			g.setFont(fnt2);
 			g.setColor(Color.WHITE);
@@ -112,57 +112,58 @@ public class Menu extends MouseAdapter {
 			
 			g.setColor(Color.WHITE);
 			g.drawRect((Game.WIDTH / 2) - 120, 350, Game.tileSize * 5, 72);
-			g.drawString("HELP", (Game.WIDTH / 2) - 65, 405);
+			g.drawString("HELP", (Game.WIDTH / 2) - 65, 402);
 
 			g.setColor(Color.WHITE);
 			g.drawRect((Game.WIDTH / 2) - 120, 480, Game.tileSize * 5, 72);
-			g.drawString("QUIT", (Game.WIDTH / 2) - 60, 535);
+			g.drawString("QUIT", (Game.WIDTH / 2) - 65, 532);
 		}
 		
 		else if (game.gameState == STATE.Help) {
-			Font fnt = new Font("arial", 1, 60);
-			Font fnt2 = new Font("arial", 1, 30);
-			Font fnt3 = new Font("arial", 1, 30);
+			Font fnt = new Font("Algerian", 0, 95);
+			Font fnt2 = new Font("Garamond", 0, 38);
+			Font fnt3 = new Font("Garamond", 0, 32);
 			
 			g.setFont(fnt);
 			g.setColor(Color.WHITE);
-			g.drawString("HELP", (Game.WIDTH / 2) - 85, 130);
+			g.drawString("HELP", (Game.WIDTH / 2) - 125, 130);
 			
 			g.setFont(fnt3);
-			g.drawString("Use WASD keys to move and avoid the zombies", (Game.WIDTH / 2) - 340, 300);
+			g.drawString("Kill zombies. Find the key. Get the machine gun. Escape.", (Game.WIDTH / 2) - 355, 250);
+			g.drawString("If you can...bitch", (Game.WIDTH / 2) - 120, 350);
 			
 			g.setFont(fnt2);
-			g.drawRect((Game.WIDTH / 2) - 410, 20, 200, 50);
+			g.drawRect((Game.WIDTH / 2) - 350, 20, 150, 50);
 			g.drawString("Back", 85, 55);
 		}
 		
 		else if (game.gameState == STATE.gameOver) {
-			Font fnt = new Font("arial", 1, 60);
-			Font fnt2 = new Font("arial", 1, 30);
-			Font fnt3 = new Font("arial", 1, 30);
+			Font fnt = new Font("Algerian", 0, 95);
+			Font fnt2 = new Font("Garamond", 0, 38);
+			Font fnt3 = new Font("Garamond", 0, 32);
 			
 			g.setFont(fnt);
 			g.setColor(Color.WHITE);
-			g.drawString("Game Over", (Game.WIDTH / 2) - 160, 130);
+			g.drawString("Game Over", (Game.WIDTH / 2) - 275, 130);
 			
 			if (Zombie.getKillCount() <= 0) {
 				g.setFont(fnt3);
-				g.drawString("You didn't kill any zombies... This is awkward...", (Game.WIDTH / 2) - 340, 300);
+				g.drawString("You didn't kill any zombies... This is awkward...", (Game.WIDTH / 2) - 310, 300);
 			}
 			
 			else if (Zombie.getKillCount() >= 1 && Zombie.getKillCount() <= 24) {
 				g.setFont(fnt3);
-				g.drawString("You killed " + Zombie.getKillCount() + " zombies. Nice.", (Game.WIDTH / 2) - 190, 300);
+				g.drawString("You killed " + Zombie.getKillCount() + " zombies. Nice...", (Game.WIDTH / 2) - 190, 300);
 			}
 			
 			else if (Zombie.getKillCount() >= 2) {
 				g.setFont(fnt3);
-				g.drawString("You killed " + Zombie.getKillCount() + " zombies! You're a slayer!", (Game.WIDTH / 2) - 330, 300);
+				g.drawString("Whoa! You killed " + Zombie.getKillCount() + " zombies!", (Game.WIDTH / 2) - 185, 300);
 			}
 			
 			g.setFont(fnt2);
 			g.drawRect((Game.WIDTH / 2) - 120, 480, Game.tileSize * 5, 72);
-			g.drawString("Try again?", (Game.WIDTH / 2) - 70, 525);
+			g.drawString("Try again?", (Game.WIDTH / 2) - 75, 530);
 						
 		}
 
