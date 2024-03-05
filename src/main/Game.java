@@ -71,7 +71,7 @@ public class Game extends JPanel implements Runnable {
 	
 	public void gameSetUp() {
 		handler = new Handler();
-		cChecker = new CollisionChecker(this);
+		cChecker = new CollisionChecker(this, handler);
 		keyIn = new KeyInput(handler);
 		cam = new Camera(0, 0, handler);
 		menu = new Menu(this, handler, cam);

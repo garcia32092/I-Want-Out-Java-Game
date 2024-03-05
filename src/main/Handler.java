@@ -81,5 +81,19 @@ public class Handler {
 		
 		return numOfWebSpiders;
 	}
+	
+	public int numberOfDoors() {
+		int numOfDoors = 0;
+		
+		Iterator<GameObject> iterator = object.iterator();
+		while (iterator.hasNext()) {
+			GameObject currentObject = iterator.next();
+			if (currentObject.getId() == ID.Door) {
+				numOfDoors++;
+			}
+		}
+		
+		return numOfDoors;
+	}
 
 }

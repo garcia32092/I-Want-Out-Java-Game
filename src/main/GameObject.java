@@ -45,6 +45,7 @@ public abstract class GameObject {
 		tileCollisionX = false;
 		tileCollisionY = false;
 		game.cChecker.checkForTileCollision(this);
+		game.cChecker.checkForDoorCollision(this);
 	}
 	
 	public void setX(int x) {

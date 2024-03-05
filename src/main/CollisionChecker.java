@@ -1,11 +1,25 @@
 package main;
 
+import java.util.LinkedList;
+
 public class CollisionChecker {
 
 	Game game;
+	Handler handler;
+	Door door = null;
 	
-	public CollisionChecker(Game game) {
+	public CollisionChecker(Game game, Handler handler) {
 		this.game = game;
+		this.handler = handler;
+	}
+	
+	public void findDoor() {
+		for (int i = 0; i < handler.object.size(); i++) {
+			if (handler.object.get(i).getId() == ID.Door) {
+				door = (Door) handler.object.get(i);
+				break;
+			}
+		}
 	}
 	
 	public void checkForTileCollision(GameObject gameObject) {
@@ -105,6 +119,87 @@ public class CollisionChecker {
 				gameObject.tileCollisionX = true;
 			}
 			break;
+		}
+	}
+	
+	public void checkForDoorCollision(GameObject gameObject) {
+		
+		if (handler.numberOfDoors() > 0) {
+			if (door == null)
+				findDoor();
+			
+			if (door != null) {
+				int gameObjectFutureLeftX = (int) (gameObject.getX() + gameObject.getVelX());
+				int gameObjectFutureRightX = (int) (gameObject.getX() + gameObject.getVelX()) + gameObject.getSolidBounds().width;
+				int gameObjectFutureTopY = (int) (gameObject.getY() + gameObject.getVelY());
+				int gameObjectFutureBottomY = (int) (gameObject.getY() + gameObject.getVelY()) + gameObject.getSolidBounds().height;
+				
+				int doorLeftX = (int) door.getX();
+				int doorRightX = (int) door.getX() + door.getSolidBounds().width;
+				int doorTopY = (int) door.getY();
+				int doorBottomY = (int) door.getY() + door.getSolidBounds().height;
+				
+				switch(gameObject.direction) {
+				case "up":
+					if ((gameObjectFutureRightX > doorLeftX && gameObjectFutureLeftX < doorRightX) && (gameObjectFutureBottomY > doorTopY && gameObjectFutureTopY < doorBottomY)) {
+						gameObject.tileCollisionY = true;
+					}
+					break;
+				case "down":
+					if ((gameObjectFutureRightX > doorLeftX && gameObjectFutureLeftX < doorRightX) && (gameObjectFutureBottomY > doorTopY && gameObjectFutureTopY < doorBottomY)) {
+						gameObject.tileCollisionY = true;
+					}
+					break;
+				case "left":
+					if ((gameObjectFutureRightX > doorLeftX && gameObjectFutureLeftX < doorRightX) && (gameObjectFutureBottomY > doorTopY && gameObjectFutureTopY < doorBottomY)) {
+						gameObject.tileCollisionX = true;
+					}
+					break;
+				case "right":
+					if ((gameObjectFutureRightX > doorLeftX && gameObjectFutureLeftX < doorRightX) && (gameObjectFutureBottomY > doorTopY && gameObjectFutureTopY < doorBottomY)) {
+						gameObject.tileCollisionX = true;
+					}
+					break;
+				case "upright":
+					// Check collision in the upward direction
+					if ((gameObjectFutureRightX > doorLeftX && gameObjectFutureLeftX < doorRightX) && (gameObjectFutureBottomY > doorTopY && gameObjectFutureTopY < doorBottomY)) {
+						gameObject.tileCollisionY = true;
+					}
+				    
+				    // Check collision in the rightward direction
+					if ((gameObjectFutureRightX > doorLeftX && gameObjectFutureLeftX < doorRightX) && (gameObjectFutureBottomY > doorTopY && gameObjectFutureTopY < doorBottomY)) {
+						gameObject.tileCollisionX = true;
+					}
+				    break;
+				case "upleft":
+					if ((gameObjectFutureRightX > doorLeftX && gameObjectFutureLeftX < doorRightX) && (gameObjectFutureBottomY > doorTopY && gameObjectFutureTopY < doorBottomY)) {
+						gameObject.tileCollisionY = true;
+					}
+					
+					if ((gameObjectFutureRightX > doorLeftX && gameObjectFutureLeftX < doorRightX) && (gameObjectFutureBottomY > doorTopY && gameObjectFutureTopY < doorBottomY)) {
+						gameObject.tileCollisionX = true;
+					}
+					break;
+				case "downright":
+					if ((gameObjectFutureRightX > doorLeftX && gameObjectFutureLeftX < doorRightX) && (gameObjectFutureBottomY > doorTopY && gameObjectFutureTopY < doorBottomY)) {
+						gameObject.tileCollisionY = true;
+					}
+					
+					if ((gameObjectFutureRightX > doorLeftX && gameObjectFutureLeftX < doorRightX) && (gameObjectFutureBottomY > doorTopY && gameObjectFutureTopY < doorBottomY)) {
+						gameObject.tileCollisionX = true;
+					}
+					break;
+				case "downleft":
+					if ((gameObjectFutureRightX > doorLeftX && gameObjectFutureLeftX < doorRightX) && (gameObjectFutureBottomY > doorTopY && gameObjectFutureTopY < doorBottomY)) {
+						gameObject.tileCollisionY = true;
+					}
+					
+					if ((gameObjectFutureRightX > doorLeftX && gameObjectFutureLeftX < doorRightX) && (gameObjectFutureBottomY > doorTopY && gameObjectFutureTopY < doorBottomY)) {
+						gameObject.tileCollisionX = true;
+					}
+					break;
+				}
+			}
 		}
 	}
 	
