@@ -29,6 +29,7 @@ public class Menu extends MouseAdapter {
 			//PLAY button
 			if (mouseOver(mx, my, (Game.WIDTH / 2) - 120, 220, Game.tileSize * 5, 72)) {
 				game.gameState = STATE.Game;
+				game.stopMusic();
 				game.addKeyListener(game.keyIn);
 				//                           Game.tileSize * 19, Game.tileSize * 24 (world map location)
 //				handler.addObject(new Player(game.WIDTH/2-32, game.HEIGHT/2-32, ID.Player, handler, game)); OLD SPAWN POINT

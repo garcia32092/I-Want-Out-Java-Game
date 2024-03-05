@@ -50,6 +50,7 @@ public class Game extends JPanel implements Runnable {
 	public TileManager tileM;
 	public CollisionChecker cChecker;
 	public PathFinder pFinder = new PathFinder(this);
+	Sound sound = new Sound();
 	
 	public enum STATE {
 		Menu,
@@ -67,6 +68,7 @@ public class Game extends JPanel implements Runnable {
 //		System.out.println("Window size: " + WIDTH + " x " + HEIGHT);
 		new Window(WIDTH, HEIGHT, "ZOMBEEZ", this);
 //		System.out.println("Window size: " + WIDTH + " x " + HEIGHT);
+		playMusic(0);
 	}
 	
 	public void gameSetUp() {
@@ -186,6 +188,21 @@ public class Game extends JPanel implements Runnable {
 		g2.dispose();
 //		bs.show();
 		
+	}
+	
+	public void playMusic(int i) {
+		sound.setFile(i);
+		sound.play();
+		sound.loop();
+	}
+	
+	public void stopMusic() {
+		sound.stop();
+	}
+	
+	public void playSE(int i) {
+		sound.setFile(i);
+		sound.play();
 	}
 	
 	public static float Clamp(float var, float min, float max) {
