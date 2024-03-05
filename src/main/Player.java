@@ -40,7 +40,7 @@ public class Player extends GameObject {
 	
 
 	public Rectangle getSolidBounds() {
-		return new Rectangle((int)worldX + 12, (int)worldY + 24, 23, 23);
+		return new Rectangle((int)worldX + 12, (int)worldY + 23, 23, 24);
 	}
 	
 	public Shape getDistanceBounds() {
@@ -241,7 +241,7 @@ public class Player extends GameObject {
 		
 		// create visible hit box for getBounds()
 //		g.setColor(Color.GREEN);
-//		g.drawRect((int)worldX + 12, (int)worldY + 24, 23, 23);
+//		g.drawRect((int)worldX + 12, (int)worldY + 23, 23, 24);
 //		g.setColor(Color.RED);
 //		g.drawRect((int)worldX + 14, (int)worldY + 6, 20, 38);
 //		((Graphics2D) g).draw(getDistanceBounds()); // FOR TESTING

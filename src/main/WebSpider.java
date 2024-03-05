@@ -15,7 +15,7 @@ public class WebSpider extends GameObject {
 	private static int killCount = 0;
     private Handler handler;
     private int tickCount = 0;
-    private float webSpiderHP = 100;
+    private float webSpiderHP = 150;
     private int directionChangeCooldown = 0;
     private Random random = new Random();
     private int shootCooldown = 0;
@@ -47,12 +47,15 @@ public class WebSpider extends GameObject {
     public void tick() {
     	
     	if (webSpiderHP <= 0) {
-    		if (++killCount % 20 == 0 || killCount == 10) {
+    		if (++killCount % 22 == 0 || killCount == 10 || killCount == 20) {
     		    if (killCount == 10) {
-    		        // Drop a buff only the first time 2 spiders have been killed
+    		        // Drop a buff only the first time 10 spiders have been killed
     		    	handler.addObject(new BuffPotion(game, (int)this.worldX, (int)this.worldY, ID.BuffPotion, handler));
+    		    } else if (killCount == 20) {
+    		        // Drop a key only the first time 20 spiders have been killed
+    		    	handler.addObject(new Key(game, (int)this.worldX, (int)this.worldY, ID.Key, handler));
     		    } else {
-    		        // For every subsequent 10th kill, drop a health potion instead
+    		        // For every subsequent 22nd kill, drop a health potion instead
     		        handler.addObject(new HealthPotion(game, (int)this.worldX, (int)this.worldY, ID.HealthPotion, handler));
     		    }
     		}

@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
 
 public class Web extends GameObject {
     private Handler handler;
-    private float webHP = 100;
+    private float webHP = 75;
     private int lifetime = 300; // Duration before the web disappears
     private float travelDistance = 0; // Current travel distance
     private final float maxTravelDistance = 200; // Maximum travel distance before becoming a web

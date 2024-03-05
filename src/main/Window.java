@@ -1,7 +1,11 @@
 package main;
 
 import java.awt.Dimension;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -22,7 +26,15 @@ public class Window extends JPanel {
 //		frame.setMinimumSize(new Dimension(width, height));
 		frame.pack();
 		
-		
+		try {
+            // Load the image from a file or resource
+            Image icon = ImageIO.read(new File("res/keys/key3.png"));
+
+            // Set the window's icon
+            frame.setIconImage(icon);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 		
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);

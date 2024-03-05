@@ -36,6 +36,7 @@ public class Menu extends MouseAdapter {
 				handler.addObject(new Player(game, game.tileSize * 20, game.tileSize * 24, ID.Player, handler));
 				camera.findPlayer();
 				handler.addObject(new Door(game, game.tileSize * 27, game.tileSize * 37, ID.Door, handler));
+				handler.addObject(new Door(game, game.tileSize * 59, game.tileSize * 13, ID.Door, handler));
 				handler.addObject(new MachineGun(game, game.tileSize * 35, game.tileSize * 37, ID.MachineGun, handler));
 				handler.addObject(new Exit(game, game.tileSize * 67, game.tileSize * 13, ID.Exit, handler));
 				return;
@@ -74,6 +75,7 @@ public class Menu extends MouseAdapter {
 				handler.addObject(new Player(game, game.tileSize * 20, game.tileSize * 24, ID.Player, handler));
 				camera.findPlayer();
 				handler.addObject(new Door(game, game.tileSize * 27, game.tileSize * 37, ID.Door, handler));
+				handler.addObject(new Door(game, game.tileSize * 59, game.tileSize * 13, ID.Door, handler));
 				handler.addObject(new MachineGun(game, game.tileSize * 35, game.tileSize * 37, ID.MachineGun, handler));
 				handler.addObject(new Exit(game, game.tileSize * 67, game.tileSize * 13, ID.Exit, handler));
 				return;

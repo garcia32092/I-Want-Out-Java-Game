@@ -67,7 +67,7 @@ public class Game extends JPanel implements Runnable {
 		gameSetUp();
 		
 //		System.out.println("Window size: " + WIDTH + " x " + HEIGHT);
-		new Window(WIDTH, HEIGHT, "ZOMBEEZ", this);
+		new Window(WIDTH, HEIGHT, "I WANT OUT", this);
 //		System.out.println("Window size: " + WIDTH + " x " + HEIGHT);
 		playMusic(0);
 	}
