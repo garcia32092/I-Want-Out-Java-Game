@@ -1,9 +1,8 @@
 package main;
 
+import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
-import main.Game.STATE;
 
 public class ShootMechanic extends MouseAdapter {
 	
@@ -69,7 +68,10 @@ public class ShootMechanic extends MouseAdapter {
 
     public void tick() {
         if (isShooting && game.gameState == Game.STATE.Game) {
-            shoot(game.getMousePosition().x, game.getMousePosition().y);
+        	Point mousePos = game.getMousePosition();
+            if (mousePos != null) {
+                shoot(mousePos.x, mousePos.y);
+            }
         }
     }
 
