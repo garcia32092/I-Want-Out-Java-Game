@@ -1,5 +1,8 @@
 # I Want Out - Java Game
 
+![Gameplay image 1](images/gameplay1.jpg)
+![Gameplay image 2](images/gameplay2.jpg)
+
 ## Introduction
 I Want Out is a Java-based game that challenges players to navigate through a maze-like series of rooms and fight to escape from a mysterious facility full of monsters. Updates to the game will aim to create a unique blend of strategy, problem-solving, and adventure, to allow players to encounter some intense and immersive gameplay.
 
